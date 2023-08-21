@@ -1,0 +1,3 @@
+ALTER TABLE refunds ADD COLUMN psp_id STRING(36);
+ALTER TABLE refunds ALTER COLUMN psp_id STRING(36) NOT NULL;
+ALTER TABLE refunds ADD CONSTRAINT FK_psp_refunds FOREIGN KEY (psp_id) REFERENCES psp (psp_id);

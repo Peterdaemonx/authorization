@@ -1,0 +1,84 @@
+listen: ":8002"
+
+cm_platform:
+  base_domain: cmtest.nl
+
+gcp:
+  project_id: "cc-acquiring-development"
+  spanner:
+    instance: "acquiring-instance"
+    database: "authorizations"
+    pool_size: 3
+    read_timeout: "3s"
+    write_timeout: "5s"
+  pubsub:
+    authorization_captured_topic_id: "authorization.captured.v1"
+    refund_captured_topic_id: "refund.captured.v1"
+    presentment_cleared_topic_id: "presentment.cleared.v1"
+
+    timeout: "10s"
+  storage:
+    bucket_name: "cc-acquiring-development-clearing-files"
+
+development: # Development only fields. This entire section MAY NOT be present outside of local development setups
+  mock_cm_platform: true
+  mock_permission_store: false
+  human_readable_logging: false
+  mock_data: false
+  mock_tokenization: true
+  mock_card_info: true
+  mock_publisher: true
+  mock_pub_sub: false
+  mock_nonce_store: false
+  mock_storage_bucket: true
+  spanner_emulator_addr: "localhost:10010"
+
+# blocked_bins:
+#  - 523233
+
+mastercard: # Mastercard related config
+  binrange_filetype: "YTF.AR.TR54"
+  connection_pool:
+    max_connections: 1 # Max number of connections that the pool is going to maintain.
+    name: "Mastercard"
+    address: "mipmock:9999"
+    dial_timeout: "5s" # Timeout for connecting operations.
+    redial_delay: "3s" # Delay between connection attempts.
+    keep_alive_delay: "15s" # Delay between zero probe sends. This value is also used as initial recv. idle timeout.
+    read_timeout: "12s" # Timeout for connection read operations.
+    write_timeout: "12s" # Timeout for write operations.
+    response_timeout: "12s" # Time to wait for a response.
+    tick_delay: "5s" # Time to wait between requests.
+
+visa:
+  source_station_id: "111106"
+  binrange_filetype: "EPExt"
+  connection_pool:
+    max_connections: 1 # Max number of connections that the pool is going to maintain.
+    name: "Visa"
+    address: "mas.test.cmpayments.local:3112"
+    dial_timeout: "5s" # Timeout for connecting operations.
+    redial_delay: "3s" # Delay between connection attempts.
+    keep_alive_delay: "15s" # Delay between zero probe sends. This value is also used as initial recv. idle timeout.
+    read_timeout: "12s" # Timeout for connection read operations.
+    write_timeout: "12s" # Timeout for write operations.
+    response_timeout: "12s" # Time to wait for a response.
+    tick_delay: "5s" # Time to wait between requests.
+
+cors:
+  allowed_origins: "http://frontend.dev.cmtest.nl:3000"
+
+allow_production_card_numbers: false
+
+tokenization:
+  base_url: "https://api.cmtest.nl/cc-dev01/tokenization"
+
+detokenization:
+  base_url: "https://api.cmtest.nl/cc-dev01/detokenization"
+
+card_info_api:
+  base_url: "https://api.cmtest.nl/cc-dev01/cardinfo"
+
+jwt: "eyJhbGciOiJSUzI1NiIsInR5cCI6ImNvbnN1bWVySldUIn0.eyJleHAiOjEwODU4NTMzMTQ5LCJqdGkiOiIyZTU2MDJmZS1jNTZlLTQwODMtOTFlNi1lMmVlMDdmNDkwYWUiLCJpYXQiOjE2MzUxNjExMTIsInN1YiI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMCIsIm9iamVjdCI6IioiLCJvYmplY3RJZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMCIsInBlcm1pc3Npb25zIjpbInJlYWRfdGVuYW50IiwiY3JlYXRlX3RlbmFudCIsInVwZGF0ZV90ZW5hbnQiLCJkZWxldGVfdGVuYW50IiwicmVhZF9tZXJjaGFudCIsInJlYWRfbWVyY2hhbnRfY29uZmlnIiwiY3JlYXRlX21lcmNoYW50IiwidXBkYXRlX21lcmNoYW50IiwiZGVsZXRlX21lcmNoYW50IiwicmVhZF91c2VyIiwiY3JlYXRlX3VzZXIiLCJ1cGRhdGVfdXNlciIsImRlbGV0ZV91c2VyIiwicmVzZXRfdXNlcl9wYXNzd29yZCIsImNyZWF0ZV91c2VyX2FjY2Vzc19jb250cm9sIiwiZGVsZXRlX3VzZXJfYWNjZXNzX2NvbnRyb2wiLCJyZWFkX3N5c3RlbSIsImNyZWF0ZV9zeXN0ZW0iLCJ1cGRhdGVfc3lzdGVtIiwiZGVsZXRlX3N5c3RlbSIsInJlc2V0X3N5c3RlbV9rZXkiLCJjcmVhdGVfc3lzdGVtX2FjY2Vzc19jb250cm9sIiwiZGVsZXRlX3N5c3RlbV9hY2Nlc3NfY29udHJvbCIsInJlYWRfcm9sZSIsImF1dGhvcml6ZV9jaGFyZ2UiLCJjYW5jZWxfY2hhcmdlIiwiY2FwdHVyZV9jaGFyZ2UiLCJjcmVhdGVfY2hhcmdlIiwicmVhZF9jaGFyZ2UiLCJyZWZ1bmRfY2hhcmdlIiwic2V0dGxlX2NoYXJnZSIsInNldF9jaGFyZ2VfcmlzayIsImNyZWF0ZV9yZWZ1bmQiLCJjcmVhdGVfbm90aWZpY2F0aW9uIiwiY3JlYXRlX3Rva2VuIiwicmVhZF90b2tlbiIsImRlbGV0ZV90b2tlbiIsInByb3ZpZGVfdG9rZW5pemF0aW9uX3NlY3JldCIsInJlYWRfdG9rZW5pemF0aW9uX3N0YXR1cyIsImRldGVybWluZV9yb3V0ZSIsIm1hbmFnZV9yb3V0aW5nIiwiZ2V0X2NhcmRfaW5mbyIsImNyZWF0ZV9jbGFpbSIsInVwZGF0ZV9jbGFpbSIsInJlYWRfY2xhaW0iLCJtYW5hZ2VfdHJhbnNhY3Rpb24iLCJyZWFkX2NhbmNlbCIsInJlYWRfcmVmdW5kcyIsInZpZXdfcGF5b3V0IiwibWFya19wYXlvdXRfY29tcGxldGVkIiwicmVhZF9jYXB0dXJlcyIsImFkZF9iYW5rX3N0YXRlbWVudCIsInJlYWRfc2V0dGxlbWVudHMiLCJyZWFkX2ZpcnN0cHJlc2VudG1lbnRzIl19.Cuv2tD0A5SCrKM2ia1WPHwOiw4fhfcPk2jJzlvTLrjzzrp6VuGtzhV8o9WUm1AQOJrwohNJ-pIAA5snkSaBmrQxIYfp2HSGyeOMpuDcsRNt1o1HgnmGN97MUzTvAgOg-dwzMBWfhnZC-F50zPBrkmHJZYS1xTHf3OX1Hld_JwQJgYNu_FoJKCGwrzg0wIry8CbGs2wgtCI0i24dfO_Y5hPBqLG9f1fPw3bSk5Ei_cQogjXIG2gT8XFUQKBXEl_c92C8URHAy7LVkhSuNNP5bejBVKHyK7_zV-EUGVpZVUXogKcUF_xf7uTAIxATTtwOUtqelpEJ4MkJoLxNBb_Xpk-58MLdy_VJQFl4pVoinTRC_V_9mHhjyak5VJ9m1T6bjcfjSmPzPGQyYRnH65DVpW9aLjCR67TNrdGKPmZfSNg5j9Y5mM6j4ONE4YLm1FnCiUL05n1pYeEjQZRjYjr8Wc8Cyp_dbUXDQWN3w8SPriTZv25C9mYpvToHSMaD6fjkf"
+
+min_log_level: "Informational"

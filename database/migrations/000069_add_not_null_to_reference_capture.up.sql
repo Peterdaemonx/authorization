@@ -1,0 +1,1 @@
+ALTER TABLE authorization_captures ALTER COLUMN reference STRING(100) NOT NULL;

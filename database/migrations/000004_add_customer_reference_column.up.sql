@@ -1,0 +1,1 @@
+ALTER TABLE authorizations ADD COLUMN customer_reference STRING(100);

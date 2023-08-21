@@ -1,0 +1,6 @@
+ALTER TABLE visa_authorizations DROP COLUMN chip_condition_code;
+ALTER TABLE visa_authorizations DROP COLUMN special_condition_indicator;
+ALTER TABLE visa_authorizations DROP COLUMN chip_transaction_indicator;
+ALTER TABLE visa_authorizations DROP COLUMN chip_card_authentication_reliability_indicator;
+ALTER TABLE visa_authorizations DROP COLUMN cardholder_id_method_indicator;
+ALTER TABLE visa_authorizations DROP COLUMN additional_authorization_indicators;

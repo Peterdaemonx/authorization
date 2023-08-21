@@ -1,0 +1,50 @@
+### 2.1 MOTO Authorization
+< ./../../../js/utils.js
+
+POST {{host}}/v1/authorizations
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "amount": {{$random.integer(100, 200)}},
+  "currency": "EUR",
+  "reference": "{{$random.uuid}}",
+  "source": "moto",
+  "localTransactionDateTime": "{{currentDateTime}}",
+  "authorizationType": "{{authorizationType}}",
+  "card": {
+    "holder": "{{globalHostTestCard3_holder}}",
+    "number": "{{globalHostTestCard3_pan}}",
+    "cvv": "{{globalHostTestCard3_cvv}}",
+    "expiry": {
+      "year": "{{globalHostTestCard3_expiryYear}}",
+      "month": "{{globalHostTestCard3_expiryMonth}}"
+    }
+  },
+  "cardAcceptor": {
+    "name": "{{cardAcceptorName}}",
+    "city": "{{cardAcceptorCity}}",
+    "country": "{{cardAcceptorCountry}}",
+    "postalCode": "{{cardAcceptorPostalCode}}",
+    "categoryCode": "{{cardAcceptorCategoryCode}}",
+    "id": "{{cardAcceptorId}}"
+  }
+}
+
+> {%
+    client.test("2.1 MOTO Authorization should return 200", function() {
+        client.assert(response.status === 200)
+    })
+    client.test("2.1 MOTO Authorization cardschemeresponse status code should be 00", function() {
+        client.assert(response.body.cardSchemeResponse.code === "00", "cardSchemeResponse.code is not approved")
+    })
+    if (response.status === 200) {
+        if (response.body.cardSchemeResponse.code === "00") {
+            client.global.clear("authorization_id")
+            client.global.set("authorization_id", response.body.id)
+            client.global.clear("amount")
+            client.global.set("amount", response.body.amount)
+        }
+    }
+%}

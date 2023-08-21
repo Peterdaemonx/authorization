@@ -1,0 +1,1 @@
+ALTER TABLE visa_authorizations DROP COLUMN transaction_identifier;

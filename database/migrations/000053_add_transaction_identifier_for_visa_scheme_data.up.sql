@@ -1,0 +1,1 @@
+ALTER TABLE visa_authorizations ADD COLUMN transaction_identifier INT64;

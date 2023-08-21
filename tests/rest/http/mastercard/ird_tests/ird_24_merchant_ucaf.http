@@ -1,0 +1,81 @@
+###
+# @name=IRD 24 Merchant UCAF Authorization
+
+< ../date.js
+
+POST {{host}}/v1/authorizations/
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+    "amount": {{$random.integer(100, 200)}},
+    "currency": "EUR",
+    "reference": "{{$random.uuid}}",
+    "source": "ecommerce",
+    "localTransactionDateTime": "{{currentDateTime}}",
+    "authorizationType": "finalAuthorization",
+    "card": {
+        "holder": "{{$random.alphabetic(10)}}",
+        "number": "5204740000000004",
+        "cvv": "390",
+        "expiry": {
+            "year": "24",
+            "month": "02"
+        }
+    },
+    "cardAcceptor": {
+        "id": "RIMIMINI",
+        "categoryCode": "5411",
+        "name": "Rimi Mini",
+        "city": "Riga",
+        "country": "LVA",
+        "postalCode": "LV-1009"
+    },
+    "threeDSecure": {
+        "authenticationVerificationValue": "AAABBWcSNIdjeUZThmNHAAAAAAA=",
+        "version": "2",
+        "ecommerceIndicator": "01",
+        "directoryServerTransactionId": "842e6686-b40c-4efd-aed5-a32c589589aa"
+    }
+}
+
+> {%
+    client.test("IRD 24 Merchant UCAF Authorization should return 200 OK", function () {
+        client.assert(response.status === 200, "status is not 200")
+    })
+
+    client.test("IRD 24 Merchant UCAF Authorization cardschemeresponse code should be 00", function (){
+        client.assert(response.body.cardSchemeResponse.code == "00")
+    })
+
+    if (response.status === 200) {
+        client.global.clear("authorization_id")
+        client.global.clear("amount")
+        client.global.clear("reference")
+        client.global.set("amount", response.body.amount)
+        client.global.set("authorization_id", response.body.id)
+        client.global.set("reference", response.body.reference)
+    }
+%}
+
+###
+# @name=IRD 24 Merchant UCAF Capture
+POST {{host}}/v1/authorizations/{{authorization_id}}/captures/
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "amount": {{amount}},
+  "isFinal": true,
+  "currency": "EUR",
+  "reference": "{{reference}}"
+}
+
+
+> {%
+    client.test("IRD 24 Merchant UCAF Capture should return 201 OK", function () {
+        client.assert(response.status === 201, "status is not 201")
+    })
+%}

@@ -1,0 +1,12 @@
+### Capture refund
+POST {{host}}/v1/refunds/{{refund_id}}/captures
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+    "amount": {{amount}},
+    "currency": "EUR",
+    "isFinal": true,
+    "reference": "{{$random.uuid}}"
+}

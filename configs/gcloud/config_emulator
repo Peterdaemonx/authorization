@@ -1,0 +1,9 @@
+[auth]
+disable_credentials = true
+
+[core]
+project = cc-acquiring-development
+
+[api_endpoint_overrides]
+spanner = http://spanner:10020/
+

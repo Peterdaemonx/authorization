@@ -1,0 +1,58 @@
+### 13.1 E-Commerce authorization
+POST {{host}}/v1/authorizations
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "reference": "VISA Cert Test 13.1 E-Commerce Authorization",
+  "currency": "EUR",
+  "amount": 1310,
+  "localTransactionDateTime": "{{currentDateTime}}",
+  "source": "ecommerce",
+  "authorizationType": "{{authorizationType}}",
+  "card": {
+    "holder": "{{globalHostTestCard3_holder}}",
+    "number": "{{globalHostTestCard3_pan}}",
+    "cvv": "{{globalHostTestCard3_cvv}}",
+    "expiry": {
+      "year": "{{globalHostTestCard3_expiryYear}}",
+      "month": "{{globalHostTestCard3_expiryMonth}}"
+    }
+  },
+  "cardAcceptor": {
+    "name": "{{cardAcceptorName}}",
+    "city": "{{cardAcceptorCity}}",
+    "country": "{{cardAcceptorCountry}}",
+    "postalCode": "{{cardAcceptorPostalCode}}",
+    "categoryCode": "{{cardAcceptorCategoryCode}}",
+    "id": "{{cardAcceptorId}}"
+  }
+}
+
+> {%
+    client.test("13.1 E-Commerce authorization should return 200", function () {
+        client.assert(response.status === 200, "status is not 200")
+    })
+
+    client.test("13.1 E-Commerce authorization cardSchemeResponse status should be approved", function () {
+        client.assert(response.body.cardSchemeResponse.code === "00", "cardSchemeResponse.code should be 00")
+    })
+
+    if (response.body.cardSchemeResponse.code === "00") {
+        client.global.clear("authorization_id")
+        client.global.set("authorization_id", response.body.id)
+    }
+%}
+
+### 13.1 E-Commerce reversal
+POST {{host}}/v1/authorizations/{{authorization_id}}/reversals
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+> {%
+    client.test("13.1 E-Commerce Reversal should return 201", function () {
+        client.assert(response.status === 201, "status is not 201")
+    })
+%}

@@ -1,0 +1,32 @@
+# syntax=docker/dockerfile:1
+# STEP 1 create users
+FROM golang:alpine AS builder
+
+# Install Ca-certificates, required to call HTTPS endpoints.
+RUN apk add --no-cache ca-certificates && update-ca-certificates
+
+# Create appuser.
+ENV USER=nonroot
+ENV UID=10001
+
+# See https://stackoverflow.com/a/55757473/12429735RUN
+RUN adduser --disabled-password -g "" -h "/nonexistent" -s "/sbin/nologin" -H -u "${UID}" "${USER}"
+
+# STEP 2 build a small image
+FROM scratch
+
+# Import the user and group files from the builder.
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=builder /etc/passwd /etc/passwd
+COPY --from=builder /etc/group /etc/group
+
+WORKDIR /home/nonroot/
+
+COPY ./bin/api ./bin/api
+COPY ./docs ./docs
+
+USER nonroot:nonroot
+
+CMD [ "--config=./config/config.yml" ]
+
+ENTRYPOINT [ "./bin/api" ]

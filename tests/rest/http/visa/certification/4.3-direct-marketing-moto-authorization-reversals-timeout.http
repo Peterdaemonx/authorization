@@ -1,0 +1,38 @@
+###
+# @name=4.3 MOTO Authorization
+POST {{host}}/v1/authorizations
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "reference": "VISA Cert Test 4.1 MOTO Authorization",
+  "currency": "EUR",
+  "amount": 430,
+  "localTransactionDateTime": "2021-08-09 15:10:22",
+  "source": "moto",
+  "authorizationType": "finalAuthorization",
+  "card": {
+    "holder": "VISA Cert",
+    "number": "{{testcard3}}",
+    "cvv": "234",
+    "expiry": {
+      "year": "30",
+      "month": "12"
+    }
+  },
+  "cardAcceptor": {
+    "name": "MaxCorp",
+    "city": "Breda",
+    "country": "NLD",
+    "postalCode": "4899AL",
+    "categoryCode": "0742",
+    "id": "123456789012"
+  }
+}
+
+> {%
+    client.test("4.3 MOTO Authorization should return 500", function (){
+        client.assert(response.status === 500, "status is not 500")
+    })
+%}

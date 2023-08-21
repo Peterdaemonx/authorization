@@ -1,0 +1,1 @@
+ALTER TABLE mastercard_authorizations ADD COLUMN reference STRING(30);

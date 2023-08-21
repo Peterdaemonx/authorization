@@ -1,0 +1,69 @@
+{
+  "_id": "req_02524bae1eb2471981f4a89c6b2e18d5",
+  "parentId": "fld_be2fcc5b072b4d9dbeb90af252b921ae",
+  "modified": 1600000000000,
+  "created": 1600000000000,
+  "url": "{{ _.baseURL }}v1/refunds/57bf6ec6-d9d6-4c9e-9ad1-f4fe0ef0b2d9/captures",
+  "name": "Create Capture",
+  "description": "",
+  "method": "POST",
+  "body": {
+    "mimeType": "application/json",
+    "text": [
+      "{",
+      "    \"amount\": 50,",
+      "\t\t\"currency\": \"EUR\",",
+      "    \"isFinal\": false,",
+      "\t  \"reference\": \"c2603636-4bb5-4e37-9c8c-6b1f257b226f\"",
+      "}"
+    ]
+  },
+  "parameters": [],
+  "headers": [
+    {
+      "name": "Content-Type",
+      "value": "application/json",
+      "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+    },
+    {
+      "id": "pair_d6648892c15942609de097ace6b96770",
+      "name": "Cookie",
+      "value": "CMAuthentication=1234_employee",
+      "description": ""
+    },
+    {
+      "id": "pair_4d5b888395d347bd9d603a481645f965",
+      "name": "Accept-Encoding",
+      "value": "gzip, deflate, br",
+      "description": ""
+    },
+    {
+      "id": "pair_3edeeb51fa414bfea24be9b8d4220fc5",
+      "name": "Connection",
+      "value": "keep-alive",
+      "description": ""
+    },
+    {
+      "id": "pair_3e17c0a4ad8e41849f67e790ad815e21",
+      "name": "Nonce",
+      "value": "{{ _.nonce }}",
+      "description": ""
+    }
+  ],
+  "authentication": {
+    "type": "basic",
+    "useISO88591": false,
+    "disabled": false,
+    "username": "{{ _.create_capture_perm }}",
+    "password": ""
+  },
+  "metaSortKey": -1650371282049.5,
+  "isPrivate": false,
+  "settingStoreCookies": true,
+  "settingSendCookies": true,
+  "settingDisableRenderRequestBody": false,
+  "settingEncodeUrl": true,
+  "settingRebuildPath": true,
+  "settingFollowRedirects": "global",
+  "_type": "request"
+}

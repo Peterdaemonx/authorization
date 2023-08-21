@@ -1,0 +1,73 @@
+###
+# @name=ird_75_authorization
+
+< ../date.js
+
+POST {{host}}/v1/authorizations/
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "reference": "Test IRD 75 Mastercard Authorization",
+  "currency": "EUR",
+  "amount": 100,
+  "localTransactionDateTime": "{{currentDateTime}}",
+  "source": "ecommerce",
+  "card": {
+    "holder": "{{MastercardCreditcard1Holder}}",
+    "number": "{{MastercardCreditcard1Pan}}",
+    "cvv": "{{MastercardCreditcard1Cvv}}",
+    "expiry": {
+      "year": "{{MastercardCreditcard1ExpiryYear}}",
+      "month": "{{MastercardCreditcard1ExpiryMonth}}"
+    }
+  },
+  "cardAcceptor": {
+    "name": "{{cardAcceptorName}}",
+    "city": "{{cardAcceptorCategoryCode}}",
+    "country": "{{cardAcceptorCountry}}",
+    "postalCode": "{{cardAcceptorPostalCode}}",
+    "categoryCode": "{{cardAcceptorCategoryCode}}",
+    "id": "{{cardAcceptorId}}"
+  }
+}
+
+> {%
+    client.test("IRD 75 Mastercard Authorization should return 200 OK", function () {
+        client.assert(response.status === 200, "status is not 200")
+    })
+
+    client.test("IRD 75 Mastercard Authorization cardschemeresponse code should be 00", function (){
+        client.assert(response.body.cardSchemeResponse.code == "00")
+    })
+
+    if (response.status === 200) {
+        client.global.clear("authorization_id")
+        client.global.set("authorization_id", response.body.id)
+        client.global.set("reference", response.body.reference)
+    }
+%}
+
+
+###
+# @name=IRD 75 Mastercard Capture
+POST {{host}}/v1/authorizations/{{authorization_id}}/captures/
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "amount": 100,
+  "isFinal": true,
+  "currency": "EUR",
+  "reference": "{{reference}}"
+}
+
+
+> {%
+    client.test("IRD 75 Mastercard Authorization should return 201 OK", function () {
+        client.assert(response.status === 201, "status is not 201")
+    })
+%}
+

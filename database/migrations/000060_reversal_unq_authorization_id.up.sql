@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX reversal_authorization_id ON authorization_reversals (authorization_id);

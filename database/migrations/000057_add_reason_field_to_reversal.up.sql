@@ -1,0 +1,1 @@
+ALTER TABLE authorization_reversals ADD COLUMN reason STRING(100);

@@ -1,0 +1,1 @@
+ALTER TABLE authorizations ALTER COLUMN accountholder_authentication_value STRING(56);

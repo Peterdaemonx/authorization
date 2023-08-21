@@ -1,0 +1,185 @@
+### 12.1 E-Commerce Authorization with CVV2
+POST {{host}}/v1/authorizations
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "reference": "VISA Cert Test 12.1 E-Commerce Authorization with CVV2",
+  "currency": "EUR",
+  "amount": 1210,
+  "localTransactionDateTime": "{{currentDateTime}}",
+  "source": "ecommerce",
+  "authorizationType": "{{authorizationType}}",
+  "card": {
+    "holder": "{{globalHostTestCard1_holder}}",
+    "number": "{{globalHostTestCard1_pan}}",
+    "cvv": "{{globalHostTestCard1_cvv}}",
+    "expiry": {
+      "year": "{{globalHostTestCard1_expiryYear}}",
+      "month": "{{globalHostTestCard1_expiryMonth}}"
+    }
+  },
+  "cardAcceptor": {
+    "name": "{{cardAcceptorName}}",
+    "city": "{{cardAcceptorCity}}",
+    "country": "{{cardAcceptorCountry}}",
+    "postalCode": "{{cardAcceptorPostalCode}}",
+    "categoryCode": "{{cardAcceptorCategoryCode}}",
+    "id": "{{cardAcceptorId}}"
+  }
+}
+
+> {%
+  client.test("12.1 E-Commerce Authorization with CVV2 should return 200", function () {
+      client.assert(response.status === 200)
+  })
+
+  client.test("12.1 E-Commerce Authorization with CVV2 cardSchemeResponse status should approved", function () {
+      client.assert(response.body.cardSchemeResponse.code === "00", "cardSchemeResponse.code should be 00")
+  })
+
+  if (response.body.cardSchemeResponse.code === "00") {
+      client.global.clear("authorization_id")
+      client.global.set("authorization_id", response.body.id)
+      client.global.clear("amount")
+      client.global.set("amount", response.body.amount)
+  }
+%}
+
+### 12.3 E-Commerce Authorization with omitted CVV2
+POST {{host}}/v1/authorizations
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "reference": "VISA Cert Test 12.3 E-Commerce Authorization with incorrect CVV2",
+  "currency": "EUR",
+  "amount": 1230,
+  "localTransactionDateTime": "{{currentDateTime}}",
+  "source": "ecommerce",
+  "authorizationType": "{{authorizationType}}",
+  "card": {
+    "holder": "{{globalHostTestCard1_holder}}",
+    "number": "{{globalHostTestCard1_pan}}",
+    "cvv": "123",
+    "expiry": {
+      "year": "{{globalHostTestCard1_expiryYear}}",
+      "month": "{{globalHostTestCard1_expiryMonth}}"
+    }
+  },
+  "cardAcceptor": {
+    "name": "{{cardAcceptorName}}",
+    "city": "{{cardAcceptorCity}}",
+    "country": "{{cardAcceptorCountry}}",
+    "postalCode": "{{cardAcceptorPostalCode}}",
+    "categoryCode": "{{cardAcceptorCategoryCode}}",
+    "id": "{{cardAcceptorId}}"
+  }
+}
+
+> {%
+    client.test("12.3 E-Commerce Authorization with incorrect CVV2 should return 200", function () {
+        client.assert(response.status === 200)
+    })
+
+    client.test("12.3 E-Commerce Authorization with incorrect CVV2 cardSchemeResponse status should be declined", function () {
+        client.assert(response.body.cardSchemeResponse.code === "N7", "cardSchemeResponse.code should be N7")
+    })
+%}
+
+### 12.4 E-Commerce Authorization with incorrect CVV2
+POST {{host}}/v1/authorizations
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "reference": "VISA Cert Test 12.4 E-Commerce Authorization with CVV2 omitted",
+  "currency": "EUR",
+  "amount": 1240,
+  "localTransactionDateTime": "{{currentDateTime}}",
+  "source": "ecommerce",
+  "authorizationType": "{{authorizationType}}",
+  "card": {
+    "holder": "{{globalHostTestCard3_holder}}",
+    "number": "{{globalHostTestCard3_pan}}",
+    "expiry": {
+      "year": "{{globalHostTestCard3_expiryYear}}",
+      "month": "{{globalHostTestCard3_expiryMonth}}"
+    }
+  },
+  "cardAcceptor": {
+    "name": "MaxCorp",
+    "city": "Breda",
+    "country": "NLD",
+    "postalCode": "4899AL",
+    "categoryCode": "0742",
+    "id": "123456789012"
+  }
+}
+
+> {%
+    client.test("12.4 E-Commerce Authorization with CVV2 omitted should return 200", function () {
+        client.assert(response.status === 200)
+    })
+
+    client.test("12.4 E-Commerce Authorization with CVV2 omitted cardSchemeResponse status should be approved", function () {
+        client.assert(response.body.cardSchemeResponse.code === "00", "cardSchemeResponse.code should be 00")
+    })
+
+    if (response.body.cardSchemeResponse.code === "00") {
+        client.global.clear("authorization_id")
+        client.global.set("authorization_id", response.body.id)
+        client.global.clear("amount")
+        client.global.set("amount", response.body.amount)
+    }
+%}
+
+### 12.8 E-commerce Merchandise Credit Return (Refund)
+POST {{host}}/v1/refunds
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "reference": "VISA Cert Test 12.8 E-Commerce Merchandise Credit Return",
+  "currency": "EUR",
+  "amount": 1280,
+  "localTransactionDateTime": "{{currentDateTime}}",
+  "source": "ecommerce",
+  "authorizationType": "{{authorizationType}}",
+  "card": {
+    "number": "{{globalHostTestCard1_pan}}",
+    "expiry": {
+      "year": "{{globalHostTestCard1_expiryYear}}",
+      "month": "{{globalHostTestCard1_expiryMonth}}"
+    }
+  },
+  "cardAcceptor": {
+    "name": "{{cardAcceptorName}}",
+    "city": "{{cardAcceptorCity}}",
+    "country": "{{cardAcceptorCountry}}",
+    "postalCode": "{{cardAcceptorPostalCode}}",
+    "categoryCode": "{{cardAcceptorCategoryCode}}",
+    "id": "{{cardAcceptorId}}"
+  }
+}
+
+> {%
+    client.test("12.8 E-commerce Merchandise Credit Return (Refund) should return 200", function () {
+        client.assert(response.status === 200)
+    })
+
+    client.test("12.8 E-commerce Merchandise Credit Return (Refund) cardSchemeResponse status should approved", function () {
+        client.assert(response.body.cardSchemeResponse.code === "00" || response.body.cardSchemeResponse.code === "85", "cardSchemeResponse.code should be 00 or 85")
+    })
+
+    if (response.body.cardSchemeResponse.code === "00" || response.body.cardSchemeResponse.code === "85") {
+        client.global.clear("refund_id")
+        client.global.set("refund_id", response.body.id)
+        client.global.clear("amount")
+        client.global.set("amount", response.body.amount)
+    }
+%}

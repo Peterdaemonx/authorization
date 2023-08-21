@@ -1,0 +1,1086 @@
+openapi: "3.0.3"
+info:
+  version: 0.0.2
+  title: Credit Card Acquiring Authorization Service
+  description: API for authorize, refund and capture Mastercard and Visa transaction
+  termsOfService: http://mycompany.com/terms/
+  contact:
+    name: Team Credit Card Acquiring
+    email: support@mycompany.com
+    url: http://mycompany.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: https://api.cmtest.nl/cc-acc/authorization/v1
+    description: Test server
+security:
+  - basicAuth: []
+paths:
+  /echo/mastercard:
+    get:
+      description: Trigger an echo message to Mastercard
+      operationId: send echo
+      tags:
+        - Echo
+      responses:
+        '200':
+          description: success
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: gateway time-out
+          content:
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /echo/visa:
+    get:
+      description: Trigger an echo message to Visa
+      operationId: send echo
+      tags:
+        - Echo
+      responses:
+        '200':
+          description: success
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: gateway time-out
+          content:
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /authorizations:
+    post:
+      description: Create a new authorization and send it to Mastercard or Visa
+      operationId: authorize transaction
+      tags:
+        - Authorizations
+      parameters:
+        - name: nonce
+          in: header
+          description: a unique value chosen by an entity in the protocol
+          required: true
+          schema:
+            $ref: '#/components/schemas/Uuid'
+          example: a10323a5-8e0b-4dab-86d8-8a20325107e6
+      requestBody:
+        description: Authorization to send to the card scheme
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostAuthorization'
+      responses:
+        '200':
+          description: successful processed the authorization request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorizationResponse'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: forbidden
+        '422':
+          description: input validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      description: |
+        Returns all authorizations from the system that the user has access to, filters can be used to limit the result set
+      operationId: getAuthorizations
+      tags:
+        - Authorizations
+      parameters:
+        - name: reference
+          in: query
+          description: customers reference passed into the create authorization payload upon creation of the authorization
+          required: false
+          style: form
+          schema:
+            type: string
+            format: int64
+            maxLength: 100
+          example: c2603636-4bb5-4e37-9c8c-6b1f257b226f
+        - name: amount
+          in: query
+          description: the requested authorize amount in the smallest currency unit (meaning for EUR 9.95 pass 995; for JPY 100, pass 100)
+          required: false
+          schema:
+            $ref: '#/components/schemas/Amount'
+          example: 9625
+        - name: processingDate
+          in: query
+          description: processing date and time of transaction
+          required: false
+          schema:
+            type: string
+            format: date
+          example: 2021-02-03
+        - name: pan
+          in: query
+          description: last 4 digits of the card number, wildcard search will be applied
+          required: false
+          schema:
+            type: string
+            minLength: 4
+            maxLength: 4
+          example: "0619"
+        - name: status
+          in: query
+          description: status of the authorization
+          required: false
+          schema:
+            type: string
+            enum:
+              - authorized
+              - declined
+              - failed
+              - reversed
+        - name: exemption
+          in: query
+          description: exemption applied in non 3DS transactions
+          required: false
+          schema:
+            $ref: '#/components/schemas/Exemption'
+        - name: responseCode
+          in: query
+          description: cardscheme's response code indicating the status of the authorization
+          required: false
+          schema:
+            type: string
+            minLength: 2
+            maxLength: 2
+          example: "00"
+        - name: traceId
+          in: query
+          description: trace ID returned by the cardschemes in case of recurring transactions
+          required: false
+          schema:
+            $ref: '#/components/schemas/TraceId'
+          example: MCC9999991231
+        - name: page
+          in: query
+          description: page to fetch for pagination
+          required: false
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+            maximum: 99
+            default: 1
+        - name: pageSize
+          in: query
+          description: number of authorizations per page
+          required: false
+          schema:
+            type: integer
+            format: int64
+            minimum: 10
+            maximum: 100
+            default: 15
+        - name: sort
+          in: query
+          description: column to sort the result set on
+          required: false
+          schema:
+            type: string
+            default: -processingDate
+            enum:
+              - amount
+              - -amount
+              - createdAt
+              - -createdAt
+              - processingDate
+              - -processingDate
+              - status
+              - -status
+              - exemption
+              - -exemption
+      responses:
+        '200':
+          description: filtered authorizations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  metadata:
+                    $ref: '#/components/schemas/Metadata'
+                  authorizations:
+                    $ref: '#/components/schemas/AuthorizationsResponse'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: forbidden
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /authorizations/{authorizationId}:
+    get:
+      description: Returns a single authorization based on the ID
+      operationId: find authorization by id
+      tags:
+        - Authorizations
+      parameters:
+        - name: authorizationId
+          in: path
+          description: ID of authorization to fetch
+          required: true
+          schema:
+            $ref: '#/components/schemas/Uuid'
+      responses:
+        '200':
+          description: authorization response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorizationResponse'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: forbidden
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /authorizations/{authorizationId}/captures:
+    post:
+      description: start the execution of the authorization capture process
+      operationId: capture authorization
+      tags:
+        - Captures
+      parameters:
+        - name: authorizationId
+          in: path
+          description: authorization ID returned upon creation of the authorization
+          required: true
+          schema:
+            $ref: '#/components/schemas/Uuid'
+          example: c2603636-4bb5-4e37-9c8c-6b1f257b226f
+        - name: nonce
+          in: header
+          description: a unique value chosen by an entity in the protocol
+          required: true
+          schema:
+            $ref: '#/components/schemas/Uuid'
+          example: a10323a5-8e0b-4dab-86d8-8a20325107e6
+      requestBody:
+        description: Capture details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostCapture'
+      responses:
+        '201':
+          description: successful capture request. authorization capture process started.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaptureAuthorizationResponse'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: forbidden
+        '422':
+          description: input validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /authorizations/{authorizationId}/reversals:
+    post:
+      description: reverse the previous authorized authorization
+      operationId: reverse authorization
+      tags:
+        - Reversals
+      parameters:
+        - name: authorizationId
+          in: path
+          description: authorization ID returned upon creation of the authorization
+          required: true
+          schema:
+            $ref: '#/components/schemas/Uuid'
+          example: c2603636-4bb5-4e37-9c8c-6b1f257b226f
+        - name: nonce
+          in: header
+          description: a unique value chosen by an entity in the protocol
+          required: true
+          schema:
+            $ref: '#/components/schemas/Uuid'
+          example: a10323a5-8e0b-4dab-86d8-8a20325107e6
+      responses:
+        '200':
+          description: successful processed the reversal request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReversalResponse'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: forbidden
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /refunds:
+    post:
+      description: Creates a new refund and sends it to Mastercard or Visa
+      operationId: refund transaction
+      tags:
+        - Refunds
+      parameters:
+        - name: nonce
+          in: header
+          description: a unique value chosen by an entity in the protocol
+          required: true
+          schema:
+            $ref: '#/components/schemas/Uuid'
+          example: a10323a5-8e0b-4dab-86d8-8a20325107e6
+      requestBody:
+        description: Refund to send to the card scheme
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostRefund'
+      responses:
+        '200':
+          description: successful processed the refund request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundResponse'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: forbidden
+        '422':
+          description: input validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /refunds/{refundId}/captures:
+    post:
+      description: start the execution of the refund capture process
+      operationId: capture refund
+      tags:
+        - Captures
+      parameters:
+        - name: refundId
+          in: path
+          description: refund ID returned upon creation of the refund
+          required: true
+          schema:
+            $ref: '#/components/schemas/Uuid'
+          example: c2603636-4bb5-4e37-9c8c-6b1f257b226f
+        - name: nonce
+          in: header
+          description: a unique value chosen by an entity in the protocol
+          required: true
+          schema:
+            $ref: '#/components/schemas/Uuid'
+          example: a10323a5-8e0b-4dab-86d8-8a20325107e6
+      requestBody:
+        description: Capture details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostCapture'
+      responses:
+        '201':
+          description: successful capture request. refund capture process started.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaptureRefundResponse'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: forbidden
+        '422':
+          description: input validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    AuthorizationResponse:
+      allOf:
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              $ref: '#/components/schemas/Uuid'
+            logId:
+              $ref: '#/components/schemas/Uuid'
+        - $ref: '#/components/schemas/AuthorizationBase'
+        - type: object
+          properties:
+            authorizationType:
+              $ref: '#/components/schemas/AuthorizationType'
+        - $ref: '#/components/schemas/Recurring'
+        - type: object
+          required:
+            - card
+            - cardAcceptor
+            - cardSchemeResponse
+            - traceId
+          properties:
+            processingDate:
+              type: string
+              format: date-time
+              description: timestamp in timezone the transaction was send to the card scheme
+            card:
+              $ref: '#/components/schemas/CardResponse'
+            cardAcceptor:
+              $ref: '#/components/schemas/CardAcceptor'
+            citMitIndicator:
+              $ref: '#/components/schemas/citMitIndicator'
+            exemption:
+              $ref: '#/components/schemas/Exemption'
+            threeDSecure:
+              $ref: '#/components/schemas/ThreeDSecureResponse'
+            cardSchemeResponse:
+              allOf:
+                - $ref: '#/components/schemas/CardSchemeResponse'
+                - type: object
+                  properties:
+                    traceID:
+                      $ref: '#/components/schemas/TraceId'
+    AuthorizationsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/AuthorizationResponse'
+    PostAuthorization:
+      allOf:
+        - $ref: '#/components/schemas/AuthorizationBase'
+        - type: object
+          properties:
+            authorizationType:
+              $ref: '#/components/schemas/AuthorizationType'
+        - $ref: '#/components/schemas/Recurring'
+        - type: object
+          required:
+            - card
+            - cardAcceptor
+          properties:
+            card:
+              $ref: '#/components/schemas/PostCard'
+            cardAcceptor:
+              $ref: '#/components/schemas/CardAcceptor'
+            citMitIndicator:
+              $ref: '#/components/schemas/citMitIndicator'
+            exemption:
+              $ref: '#/components/schemas/Exemption'
+            threeDSecure:
+              $ref: '#/components/schemas/PostThreeDSecure'
+    CaptureAuthorizationResponse:
+      allOf:
+        - type: object
+          required:
+            - id
+            - authorizationId
+            - amount
+            - currency
+            - isFinal
+          properties:
+            id:
+              $ref: '#/components/schemas/Uuid'
+            authorizationId:
+              $ref: '#/components/schemas/Uuid'
+            logId:
+              $ref: '#/components/schemas/Uuid'
+        - $ref: '#/components/schemas/PostCapture'
+    CaptureRefundResponse:
+      allOf:
+        - type: object
+          required:
+            - id
+            - refundId
+            - amount
+            - currency
+            - isFinal
+          properties:
+            id:
+              $ref: '#/components/schemas/Uuid'
+            refundId:
+              $ref: '#/components/schemas/Uuid'
+            logId:
+              $ref: '#/components/schemas/Uuid'
+        - $ref: '#/components/schemas/PostCapture'
+    PostCapture:
+      type: object
+      required:
+        - amount
+        - currency
+      properties:
+        amount:
+          $ref: '#/components/schemas/Amount'
+        currency:
+          $ref: '#/components/schemas/Currency'
+        isFinal:
+          type: boolean
+          description: indicates whether this is the last capture of a transaction. Is set to true if the outstanding authorized amount is reached.
+          default: true
+        reference:
+          $ref: '#/components/schemas/Reference'
+    ReversalResponse:
+      type: object
+      required:
+        - id
+        - authorizationId
+        - cardSchemeResponse
+      properties:
+        id:
+          $ref: '#/components/schemas/Uuid'
+        authorizationId:
+          $ref: '#/components/schemas/Uuid'
+        logId:
+          $ref: '#/components/schemas/Uuid'
+        cardSchemeResponse:
+          $ref: '#/components/schemas/CardSchemeResponse'
+    PostRefund:
+      allOf:
+        - $ref: '#/components/schemas/AuthorizationBase'
+        - type: object
+          required:
+            - card
+            - cardAcceptor
+            - authorizationType
+          properties:
+            authorizationType:
+              $ref: '#/components/schemas/AuthorizationType'
+            card:
+              type: object
+              required:
+                - number
+              properties:
+                number:
+                  $ref: '#/components/schemas/PAN'
+            cardAcceptor:
+              $ref: '#/components/schemas/CardAcceptor'
+    RefundResponse:
+      allOf:
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              $ref: '#/components/schemas/Uuid'
+            logId:
+              $ref: '#/components/schemas/Uuid'
+        - $ref: '#/components/schemas/AuthorizationBase'
+        - type: object
+          required:
+            - card
+            - cardAcceptor
+            - cardSchemeResponse
+            - traceId
+          properties:
+            authorizationType:
+              $ref: '#/components/schemas/AuthorizationType'
+            processingDate:
+              type: string
+              format: date-time
+              description: timestamp in timezone the transaction was send to the card scheme
+            card:
+              $ref: '#/components/schemas/CardResponse'
+            cardAcceptor:
+              $ref: '#/components/schemas/CardAcceptor'
+            cardSchemeResponse:
+              allOf:
+                - $ref: '#/components/schemas/CardSchemeResponse'
+                - type: object
+                  properties:
+                    traceID:
+                      $ref: '#/components/schemas/TraceId'
+    AuthorizationBase:
+      type: object
+      required:
+        - amount
+        - currency
+        - source
+        - localTransactionDateTime
+      properties:
+        amount:
+          $ref: '#/components/schemas/Amount'
+        currency:
+          $ref: '#/components/schemas/Currency'
+        reference:
+          $ref: '#/components/schemas/Reference'
+        source:
+          type: string
+          description: source of the transaction
+          enum:
+            - ecommerce
+            - moto
+        localTransactionDateTime:
+          type: string
+          description: timestamp in timezone the transaction took place in the format of YYYY-MM-DD hh:mi:ss
+          example: "2022-08-02 13:47:23"
+    CardSchemeResponse:
+      type: object
+      required:
+        - status
+        - code
+        - message
+      properties:
+        status:
+          type: string
+          description: the authorization status received from the card scheme
+          enum:
+            - Approved
+            - Declined
+            - Failed
+        code:
+          type: string
+          description: authorize response code indicating the status of the authorization
+          enum:
+            - "00"
+            - "10"
+            - "01"
+            - "03"
+            - "04"
+            - "05"
+            - "08"
+            - "12"
+            - "13"
+            - "14"
+            - "15"
+            - "30"
+            - "41"
+            - "43"
+            - "51"
+            - "54"
+            - "55"
+            - "57"
+            - "58"
+            - "61"
+            - "62"
+            - "63"
+            - "65"
+            - "70"
+            - "71"
+            - "75"
+            - "76"
+            - "77"
+            - "78"
+            - "81"
+            - "84"
+            - "85"
+            - "86"
+            - "87"
+            - "88"
+            - "89"
+            - "91"
+            - "92"
+            - "94"
+            - "96"
+          example: "00"
+        message:
+          type: string
+          description: explanation of the code returned by the card schemes
+          enum:
+            - Approved
+            - Issuer Declined
+            - Invalid merchant
+            - Capture card
+            - Do not honor
+            - Honor with ID
+            - Invalid transaction
+            - Invalid amount
+            - Invalid card number
+            - Invalid issuer
+            - Format error
+            - Lost card
+            - Stolen card
+            - Insufficient funds
+            - Expired card
+            - Invalid PIN
+            - Transaction not permitted to issuer/cardholder
+            - Transaction not permitted to acquirer/terminal
+            - Exceeds withdrawal amount limit
+            - Restricted card
+            - Security violation
+            - Soft Decline
+            - Contact Card Issuer
+            - PIN Not Changed
+            - Allowable number of PIN tries exceeded
+            - Invalid/nonexistent “To Account” specified
+            - Invalid/nonexistent “From Account” specified
+            - Invalid/nonexistent account specified (general)
+            - Domestic Debit Transaction Not Allowed (Regional use only)
+            - Invalid Authorization Life Cycle
+            - Not declined Valid for all zero amount transactions.
+            - PIN Validation not possible
+            - Purchase Amount Only, No Cash Back Allowed
+            - Cryptographic failure
+            - Unacceptable PIN-Transaction Declined-Retry
+            - Authorization System or issuer system inoperative
+            - Unable to route transaction
+            - Duplicate transmission detected
+            - System error
+          example: Approved
+    PostCard:
+      type: object
+      required:
+        - holder
+        - number
+        - expiry
+      properties:
+        holder:
+          type: string
+          description: card holders' name in capital ascii characters
+          minLength: 2
+          maxLength: 26
+          example: JOHN L. DOE
+        number:
+          $ref: '#/components/schemas/PAN'
+        cvv:
+          $ref: '#/components/schemas/CVV'
+        expiry:
+          $ref: '#/components/schemas/Expiry'
+    CardResponse:
+      type: object
+      required:
+        - number
+        - scheme
+      properties:
+        number:
+          description: card number
+          type: string
+          minLength: 9
+          maxLength: 19
+          example: "222300######2704"
+        scheme:
+          description: card scheme
+          type: string
+          example: "mastercard"
+          enum:
+          - "mastercard"
+          - "visa"
+    CardAcceptor:
+      type: object
+      required:
+        - name
+        - city
+        - country
+        - postalCode
+        - categoryCode
+        - id
+      properties:
+        id:
+          description: cardacceptor ID as used by the PSP
+          type: string
+          minLength: 1
+          maxLength: 12
+          example: CMTICKETING
+        categoryCode:
+          description: merchant category code
+          type: string
+          maxLength: 4
+          minLength: 4
+          example: "0742"
+        name:
+          description: the card acceptor's name
+          type: string
+          maxLength: 22
+          example: cm-ticketing
+        city:
+          description: The card acceptor's city
+          type: string
+          maxLength: 13
+          example: Breda
+        country:
+          description: country the card acceptor resides
+          type: string
+          minLength: 3
+          maxLength: 3
+          example: NLD
+        postalCode:
+          description: "postal code of the card acceptor, mandatory for the counties: ARG, FIN, MYS, KOR, AUT, NLD, SWE, BEL, GRC, NZL, CHE, HUN, NOR, TWN, PHL, THA, ISR, TUR, CRI, PRI, CZE, DNK, KWT, SGP, VEN"
+          type: string
+          maxLength: 10
+          example: 4825BD
+    PostThreeDSecure:
+      description: an authorization must be 3D secure or the merchant has to indicate why the authorization is not 3D secure through the exemption field.
+      allOf:
+        - type: object
+          required:
+            - authenticationVerificationValue
+          properties:
+            authenticationVerificationValue:
+              type: string
+              minLength: 28
+              maxLength: 28
+              description: cardholder-generated authentication data (collected by the merchant)
+              example: jI3JBkkaQ1p8CBAAABy0CHUAAAA=
+        - $ref: '#/components/schemas/ThreeDSecureResponse'
+    ThreeDSecureResponse:
+      type: object
+      required:
+        - version
+        - ecommerceIndicator
+      properties:
+        version:
+          type: string
+          description: the version number of ThreeDSecure that is used in the authentication
+          maxLength: 5
+          example: "2.1.0"
+        ecommerceIndicator:
+          type: string
+          description: Electronic Commerce Indicator (ECI) is a value that is returned from the Directory Server to indicate the authentication results of the credit Card payment on 3D Secure
+          enum:
+            - "00"
+            - "01"
+            - "02"
+            - "05"
+            - "06"
+            - "07"
+          example: "01"
+        directoryServerTransactionId:
+          type: string
+          description: generated by the card schemes' Directory Server during the authentication transaction and passed back to the merchant. Required for 3DS v2.
+          maxLength: 36
+          example: 3bd2137d-08f1-4feb-ba50-3c2d4401c91a
+    Recurring:
+      type: object
+      properties:
+        initialRecurring:
+          type: boolean
+          description: indicates whether this authorization is the first of a sequence of authorization
+          default: false
+        initialTraceId:
+          $ref: '#/components/schemas/TraceId'
+    citMitIndicator:
+      type: object
+      description: identify whether the transaction was initiated by the cardholder or the merchant as well as providing more detail as to the type of stored credential being used for the transaction.
+      required:
+        - initiatedBy
+        - subCategory
+      properties:
+        initiatedBy:
+          description: specify whether the transaction is cardholder-initiated transaction (CIT) or merchant-initiated transaction (MIT).
+          enum:
+            - cardholder
+            - mitRecurring
+            - mitIndustryPractice
+        subCategory:
+          description: indicator subcategory.
+          enum:
+            - credentialOnFile
+            - standingOrder
+            - subscription
+            - installment
+            - unscheduledCredentialOnFile
+            - partialShipment
+            - delayedCharge
+            - noShow
+            - resubmission
+    Metadata:
+      type: object
+      required:
+        - currentPage
+        - firstPage
+        - lastPage
+        - pageSize
+      properties:
+        currentPage:
+          type: integer
+          format: int64
+          example: 1
+          minimum: 1
+          maximum: 99
+        firstPage:
+          type: integer
+          format: int64
+          example: 1
+          minimum: 1
+          maximum: 99
+        lastPage:
+          type: integer
+          format: int64
+          example: 1
+          minimum: 1
+          maximum: 99
+        pageSize:
+          type: integer
+          format: int64
+          minimum: 10
+          maximum: 100
+          default: 15
+    Error:
+      type: object
+      required:
+        - logId
+        - code
+        - message
+        - details
+      properties:
+        logId:
+          type: string
+          example: 737cc179-69e6-4f4c-9e63-be382035615a
+        code:
+          type: integer
+          format: int64
+          example: 422
+        message:
+          type: string
+          example: input validation error
+        details:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    Amount:
+      type: integer
+      format: int64
+      minimum: 1
+      maximum: 3000000
+      description: amount in the smallest currency unit (meaning for EUR 9.95 pass 995; for JPY 100, pass 100)
+      example: 9625
+    Currency:
+      type: string
+      minLength: 3
+      maxLength: 3
+      description: ISO 4217 currency code
+      example: EUR
+    Uuid:
+      type: string
+      format: uuid
+      example: 998a8ff6-db56-4b15-b70a-a6572d8e190b
+    PAN:
+      type: string
+      description: the card number
+      minLength: 9
+      maxLength: 19
+      example: "4619031141704650"
+    CVV:
+      type: string
+      description: card verification value
+      minLength: 3
+      maxLength: 4
+      example: "083"
+    Expiry:
+      type: object
+      required:
+        - month
+        - year
+      properties:
+        month:
+          type: string
+          format: int
+          description: month of expiry
+          example: "01"
+        year:
+          type: string
+          format: int
+          description: year of expiry
+          example: 25
+    Exemption:
+      type: string
+      description: exemption applied in non 3DS transactions. Required when 3DS is not applied.
+      enum:
+        - merchantInitiated
+        - lowValue
+        - recurring
+    TraceId:
+      type: string
+      description: id that's returned by the card scheme to link sequential recurring transactions
+      minLength: 13
+      maxLength: 15
+      example: "MCC9999991231"
+    Reference:
+      type: string
+      maxLength: 100
+      description: customers reference passed into the create authorization payload upon creation of the authorization
+      example: "c2603636-4bb5-4e37-9c8c-6b1f257b226f"
+    AuthorizationType:
+      type: string
+      description: indication for Mastercard transaction type
+      enum:
+        - preAuthorization
+        - finalAuthorization

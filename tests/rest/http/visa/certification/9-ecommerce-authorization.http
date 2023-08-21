@@ -1,0 +1,47 @@
+### 9.1 E-commerce Authorization
+POST {{host}}/v1/authorizations
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "reference": "VISA Cert Test 9.1 E-Commerce Authorization",
+  "currency": "EUR",
+  "amount": 910,
+  "localTransactionDateTime": "{{currentDateTime}}",
+  "source": "ecommerce",
+  "card": {
+    "holder": "{{globalHostTestCard1_holder}}",
+    "number": "{{globalHostTestCard1_pan}}",
+    "cvv": "{{globalHostTestCard1_cvv}}",
+    "expiry": {
+      "year": "{{globalHostTestCard1_expiryYear}}",
+      "month": "{{globalHostTestCard1_expiryMonth}}"
+    }
+  },
+  "cardAcceptor": {
+    "name": "{{cardAcceptorName}}",
+    "city": "{{cardAcceptorCity}}",
+    "country": "{{cardAcceptorCountry}}",
+    "postalCode": "{{cardAcceptorPostalCode}}",
+    "categoryCode": "{{cardAcceptorCategoryCode}}",
+    "id": "{{cardAcceptorId}}"
+  }
+}
+
+> {%
+    client.test("9.1 E-commerce Authorization should return 200", function (){
+        client.assert(response.status === 200, "status is not 200")
+    })
+
+    client.test("9.1 E-commerce Authorization should be approved", function (){
+        client.assert(response.body.cardSchemeResponse.code === "00", "cardSchemeResponse.code should be 00")
+    })
+
+    if (response.body.cardSchemeResponse.code === "00") {
+        client.global.clear("authorization_id")
+        client.global.set("authorization_id", response.body.id)
+        client.global.clear("amount")
+        client.global.set("amount", response.body.amount)
+    }
+%}

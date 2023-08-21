@@ -1,0 +1,19 @@
+###
+# @name = Partial Capture Authorization
+POST {{host}}/v1/authorizations/{{authorization_id}}/captures/
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+    "amount": 90,
+    "currency": "{{currency}}",
+    "isFinal": false,
+    "reference": "{{reference}}"
+}
+
+> {%
+    client.test("Partial Capture Refund should return 201 OK", function () {
+        client.assert(response.status === 201, "status is not 201")
+    })
+%}

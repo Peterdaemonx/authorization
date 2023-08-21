@@ -1,0 +1,6 @@
+#DataSourceSettings#
+#LocalDataSource: authorization@cc-acquiring-development
+#BEGIN#
+<data-source source="LOCAL" name="authorization@cc-acquiring-development" uuid="a2100f95-41f0-42ca-84f5-cf25dd36193c"><database-info product="Google Cloud Spanner" version="1.0" jdbc-version="4.1" driver-name="com.google.cloud.spanner.jdbc.JdbcDriver" driver-version="2.0" dbms="CLOUD_SPANNER" exact-version="1.0" exact-driver-version="2.0"><identifier-quote-string>`</identifier-quote-string></database-info><case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/><driver-ref>cloudspanner</driver-ref><synchronize>true</synchronize><jdbc-driver>com.google.cloud.spanner.jdbc.JdbcDriver</jdbc-driver><jdbc-url>jdbc:cloudspanner:/projects/cc-acquiring-development/instances/acquiring-instance/databases/authorizations</jdbc-url><secret-storage>master_key</secret-storage><auth-provider>no-auth</auth-provider><schema-mapping><introspection-scope><node negative="1"><node kind="database" qname="@"><node kind="schema" qname="@"/></node><node kind="database" qname=""><node kind="schema" qname=""/></node></node></introspection-scope></schema-mapping><working-dir>$ProjectFileDir$</working-dir></data-source>
+#END#
+

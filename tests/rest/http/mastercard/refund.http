@@ -1,0 +1,54 @@
+###
+# @name=Refund
+
+< ./../../../js/utils.js
+
+POST {{host}}/v1/refunds/
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+    "amount": {{$random.integer(100, 200)}},
+    "currency": "EUR",
+    "reference": "{{$random.uuid}}",
+    "source": "ecommerce",
+    "localTransactionDateTime": "{{currentDateTime}}",
+    "authorizationType": "finalAuthorization",
+    "card": {
+        "number": "5204740000001002"
+    },
+    "cardAcceptor": {
+        "id": "CMTICKETING",
+        "categoryCode": "5411",
+        "name": "cm-ticketing",
+        "city": "Breda",
+        "country": "NLD",
+        "postalCode": "4847CV"
+    }
+}
+
+> {%
+    client.test("Refund should return 200 OK", function () {
+        client.assert(response.status === 200, "status is not 200")
+    })
+
+    client.test("Refund cardschemeresponse code should be 00", function (){
+        client.assert(response.body.cardSchemeResponse.code == "00")
+    })
+
+    client.test("Refund id should be set", function () {
+        client.assert(response.body.id != "")
+    })
+
+    if (response.status === 200) {
+        client.global.clear("amount")
+        client.global.clear("refund_id")
+        client.global.clear("reference")
+        client.global.clear("currency")
+        client.global.set("amount", response.body.amount)
+        client.global.set("currency", response.body.currency)
+        client.global.set("refund_id", response.body.id)
+        client.global.set("reference", response.body.reference)
+    }
+%}

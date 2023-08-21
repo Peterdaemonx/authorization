@@ -1,0 +1,6 @@
+#DataSourceSettings#
+#LocalDataSource: authorization@local-emulator
+#BEGIN#
+<data-source source="LOCAL" name="authorization@local-emulator" uuid="7dc07dd4-1a2a-41fb-be20-6bae811e6329"><database-info product="Google Cloud Spanner" version="1.0" jdbc-version="4.1" driver-name="com.google.cloud.spanner.jdbc.JdbcDriver" driver-version="2.0" dbms="CLOUD_SPANNER" exact-version="1.0" exact-driver-version="2.0"><identifier-quote-string>`</identifier-quote-string></database-info><case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/><driver-ref>cloudspanner</driver-ref><synchronize>true</synchronize><jdbc-driver>com.google.cloud.spanner.jdbc.JdbcDriver</jdbc-driver><jdbc-url>jdbc:cloudspanner://localhost:10010/projects/cc-acquiring-development/instances/acquiring-instance/databases/authorizations?autoConfigEmulator=true</jdbc-url><secret-storage>master_key</secret-storage><auth-provider>no-auth</auth-provider><schema-mapping><introspection-scope><node kind="database" qname="@"><node kind="schema" qname="@"/></node></introspection-scope></schema-mapping><working-dir>$ProjectFileDir$</working-dir></data-source>
+#END#
+

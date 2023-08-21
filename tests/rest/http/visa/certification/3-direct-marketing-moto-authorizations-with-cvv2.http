@@ -1,0 +1,185 @@
+### 3.1 MOTO with correct CVV2
+POST {{host}}/v1/authorizations
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "reference": "VISA Cert Test 3.1 MOTO Authorization with CVV",
+  "currency": "EUR",
+  "amount": 310,
+  "localTransactionDateTime": "{{currentDateTime}}",
+  "source": "moto",
+  "authorizationType": "{{authorizationType}}",
+  "card": {
+    "holder": "{{globalHostTestCard3_holder}}",
+    "number": "{{globalHostTestCard3_pan}}",
+    "cvv": "{{globalHostTestCard3_cvv}}",
+    "expiry": {
+      "year": "{{globalHostTestCard3_expiryYear}}",
+      "month": "{{globalHostTestCard3_expiryMonth}}"
+    }
+  },
+  "cardAcceptor": {
+    "name": "{{cardAcceptorName}}",
+    "city": "{{cardAcceptorCity}}",
+    "country": "{{cardAcceptorCountry}}",
+    "postalCode": "{{cardAcceptorPostalCode}}",
+    "categoryCode": "{{cardAcceptorCategoryCode}}",
+    "id": "{{cardAcceptorId}}"
+  }
+}
+
+> {%
+    client.test("VISA Cert Test 3.1 MOTO Authorization with CVV should return 200", function (){
+        client.assert(response.status === 200, "status is not 200")
+    })
+
+    client.test("VISA Cert Test 3.1 MOTO Authorization with CVV cardschemeresponse should status code should be 00", function() {
+        client.assert(response.body.cardSchemeResponse.code === "00", "cardSchemeResponse.code should be 00")
+    })
+
+    if (response.body.cardSchemeResponse.code === "00") {
+        client.global.clear("authorization_id")
+        client.global.set("authorization_id", response.body.id)
+        client.global.clear("amount")
+        client.global.set("amount", response.body.amount)
+    }
+%}
+
+### 3.2 MOTO with Incorrect CVV2
+POST {{host}}/v1/authorizations
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "reference": "VISA Cert Test 3.2 MOTO Authorization with CVV",
+  "currency": "EUR",
+  "amount": 320,
+  "localTransactionDateTime": "{{currentDateTime}}",
+  "source": "moto",
+  "authorizationType": "{{authorizationType}}",
+  "card": {
+    "holder": "{{globalHostTestCard3_holder}}",
+    "number": "{{globalHostTestCard3_pan}}",
+    "cvv": "123",
+    "expiry": {
+      "year": "{{globalHostTestCard3_expiryYear}}",
+      "month": "{{globalHostTestCard3_expiryMonth}}"
+    }
+  },
+  "cardAcceptor": {
+    "name": "{{cardAcceptorName}}",
+    "city": "{{cardAcceptorCity}}",
+    "country": "{{cardAcceptorCountry}}",
+    "postalCode": "{{cardAcceptorPostalCode}}",
+    "categoryCode": "{{cardAcceptorCategoryCode}}",
+    "id": "{{cardAcceptorId}}"
+  }
+}
+
+> {%
+    client.test("VISA Cert Test 3.2 MOTO Authorization with CVV should return 200", function (){
+        client.assert(response.status === 200, "status is not 200")
+    })
+
+    client.test("VISA Cert Test 3.2 MOTO Authorization with CVV cardschemeresponse should status code should be N7", function() {
+        client.assert(response.body.cardSchemeResponse.code === "N7", "cardSchemeResponse.code should be N7")
+    })
+%}
+
+### 3.3 MOTO with CVV2 Ommitted
+POST {{host}}/v1/authorizations
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "reference": "VISA Cert Test 3.3 MOTO with CVV2 Ommitted",
+  "currency": "EUR",
+  "amount": 330,
+  "localTransactionDateTime": "{{currentDateTime}}",
+  "source": "moto",
+  "authorizationType": "{{authorizationType}}",
+  "card": {
+    "holder": "{{globalHostTestCard3_holder}}",
+    "number": "{{globalHostTestCard3_pan}}",
+    "expiry": {
+      "year": "{{globalHostTestCard3_expiryYear}}",
+      "month": "{{globalHostTestCard3_expiryMonth}}"
+    }
+  },
+  "cardAcceptor": {
+    "name": "{{cardAcceptorName}}",
+    "city": "{{cardAcceptorCity}}",
+    "country": "{{cardAcceptorCountry}}",
+    "postalCode": "{{cardAcceptorPostalCode}}",
+    "categoryCode": "{{cardAcceptorCategoryCode}}",
+    "id": "{{cardAcceptorId}}"
+  }
+}
+
+> {%
+    client.test("VISA Cert Test 3.3 MOTO with CVV2 Ommitted should return 200", function (){
+        client.assert(response.status === 200, "status is not 200")
+    })
+
+    client.test("VISA Cert Test 3.3 MOTO with CVV2 Ommitted cardschemeresponse should status code should be 00", function() {
+        client.assert(response.body.cardSchemeResponse.code === "00", "cardSchemeResponse.code should be 00")
+    })
+
+    if (response.body.cardSchemeResponse.code === "00") {
+        client.global.clear("authorization_id")
+        client.global.set("authorization_id", response.body.id)
+        client.global.clear("amount")
+        client.global.set("amount", response.body.amount)
+    }
+%}
+
+### 3.5 Merchandise Return Authorization / Credit Voucher (refund)
+POST {{host}}/v1/refunds
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "reference": "VISA Cert Test 3.5 Credit voucher authorization (refund)",
+  "currency": "EUR",
+  "amount": 350,
+  "localTransactionDateTime": "{{currentDateTime}}",
+  "source": "moto",
+  "authorizationType": "{{authorizationType}}",
+  "card": {
+    "number": "{{globalHostTestCard1_pan}}",
+    "expiry": {
+      "year": "{{globalHostTestCard1_expiryYear}}",
+      "month": "{{globalHostTestCard1_expiryMonth}}"
+    }
+  },
+  "cardAcceptor": {
+    "name": "{{cardAcceptorName}}",
+    "city": "{{cardAcceptorCity}}",
+    "country": "{{cardAcceptorCountry}}",
+    "postalCode": "{{cardAcceptorPostalCode}}",
+    "categoryCode": "{{cardAcceptorCategoryCode}}",
+    "id": "{{cardAcceptorId}}"
+  }
+}
+
+> {%
+    client.test("3.5 Credit voucher authorization (refund) should return 200", function () {
+        client.assert(response.status === 200)
+    })
+
+    client.test("3.5 Credit voucher authorization (refund) cardSchemeResponse status should approved", function () {
+        client.assert(response.body.cardSchemeResponse.code === "00" || response.body.cardSchemeResponse.code === "85", "cardSchemeResponse.code should be 00 or 85")
+    })
+
+    if (response.body.cardSchemeResponse.code === "00" || response.body.cardSchemeResponse.code === "85") {
+        client.global.clear("refund_id")
+        client.global.set("refund_id", response.body.id)
+        client.global.clear("amount")
+        client.global.set("amount", response.body.amount)
+    }
+%}

@@ -1,0 +1,1 @@
+ALTER TABLE authorizations ALTER COLUMN card_issuer_id STRING(10);

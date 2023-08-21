@@ -1,0 +1,64 @@
+###
+# @name=19.1 E-Commerce Authorization with CAVV
+POST {{host}}/v1/authorizations
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "reference": "VISA Cert Test 19.1 Secure Authorization with CAVV",
+  "currency": "USD",
+  "amount": 1910,
+  "localTransactionDateTime": "{{currentDateTime}}",
+  "source": "ecommerce",
+  "authorizationType": "{{authorizationType}}",
+  "card": {
+    "holder": "{{globalHostTestCardE1_holder}}",
+    "number": "{{globalHostTestCardE1_pan}}",
+    "expiry": {
+      "year": "{{globalHostTestCardE1_expiryYear}}",
+      "month": "{{globalHostTestCardE1_expiryMonth}}"
+    }
+  },
+  "cardAcceptor": {
+    "name": "{{cardAcceptorName}}",
+    "city": "{{cardAcceptorCity}}",
+    "country": "{{cardAcceptorCountry}}",
+    "postalCode": "{{cardAcceptorPostalCode}}",
+    "categoryCode": "{{cardAcceptorCategoryCode}}",
+    "id": "{{cardAcceptorId}}"
+  },
+  "threeDSecure": {
+    "authenticationVerificationValue": "{{globalHostTestCardE1_cavv3ds2}}",
+    "version": "2.1.0",
+    "ecommerceIndicator": "{{globalHostTestCardE1_eci}}",
+    "directoryServerTransactionId": "{{directoryServerID}}"
+  }
+}
+
+> {%
+    client.test("19.1 E-Commerce Authorization with CAVV should return 200", function () {
+        client.assert(response.status === 200, "status is not 200")
+    })
+
+    client.test("19.1 E-Commerce Authorization with CAVV cardschemeresponse code should be 00", function() {
+        client.assert(response.body.cardSchemeResponse.code == "00")
+    })
+
+    if (response.body.cardSchemeResponse.code === "00") {
+        client.global.set("authorization_id", response.body.id)
+    }
+ %}
+
+###
+# @name=19.1 E-Commerce Reversal with CAVV
+POST {{host}}/v1/authorizations/{{authorization_id}}/reversals
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+> {%
+    client.test("19.1 E-Commerce Reversal with CAVV should return 201", function () {
+        client.assert(response.status === 201, "status is not 201")
+    })
+%}

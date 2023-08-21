@@ -1,0 +1,2 @@
+ALTER TABLE nonces DROP CONSTRAINT FK_psp_nonces;
+DROP TABLE nonces;

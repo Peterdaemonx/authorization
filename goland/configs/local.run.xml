@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="local" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <module name="authorization" />
+    <working_directory value="$PROJECT_DIR$" />
+    <parameters value="-config ./configs/local.yml" />
+    <envs>
+      <env name="PUBSUB_EMULATOR_HOST" value="localhost:8085" />
+      <env name="SPANNER_EMULATOR_HOST" value="localhost:10010" />
+      <env name="STORAGE_EMULATOR_HOST" value="http://localhost:4443" />
+    </envs>
+    <kind value="PACKAGE" />
+    <package value="gitlab.cmpayments.local/creditcard/authorization/cmd/api" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$/cmd/api/main.go" />
+    <method v="2" />
+  </configuration>
+</component>

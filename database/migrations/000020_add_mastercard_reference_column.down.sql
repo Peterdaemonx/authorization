@@ -1,0 +1,1 @@
+ALTER TABLE mastercard_authorizations DROP COLUMN reference;

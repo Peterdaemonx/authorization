@@ -1,0 +1,2326 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2023-01-17T13:04:50.345Z",
+  "__export_source": "insomnia.desktop.app:v2022.7.2",
+  "resources": [
+    {
+      "_id": "req_e9ab8d959ef24261862284c2466cb06e",
+      "parentId": "fld_075fe9a213eb4085ab0dab11c23b2fc6",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations/{% response 'body', 'req_84132e037f7a4896896261e947ce7e90', 'b64::JC5pZA==::46b', 'always', 60 %}/reversals",
+      "name": "Reversal OK",
+      "description": "",
+      "method": "POST",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_664c82705edc41a6b062f3dc3e339768",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_reversal_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1650344955844,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_075fe9a213eb4085ab0dab11c23b2fc6",
+      "parentId": "wrk_f4c46a9a6e0142ebbe5b7684ec7b2a58",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "Reversal",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1650344932631,
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_f4c46a9a6e0142ebbe5b7684ec7b2a58",
+      "parentId": null,
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "Authorization API",
+      "description": "",
+      "scope": "design",
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_025559bac0e94da692167c34b61fd116",
+      "parentId": "fld_31671832806543d086e26dfe4c05ca2c",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/refunds",
+      "name": "GetAllRefund",
+      "description": "",
+      "method": "GET",
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_3537f2b62ee94e6882ad42d47164458d"
+        },
+        {
+          "id": "pair_4860f40361214f2881403c90cb3a5e60",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.get_refunds_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1650359999390,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_31671832806543d086e26dfe4c05ca2c",
+      "parentId": "wrk_f4c46a9a6e0142ebbe5b7684ec7b2a58",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "Refund",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1652080834408,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_42667ff35f064d15a8dc6eb23b275583",
+      "parentId": "fld_31671832806543d086e26dfe4c05ca2c",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/refunds",
+      "name": "Visa Refund",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"card\": {\n    \"holder\": \"P A Vision VISAAAAA\",\n    \"number\": \"2223001760002704\",\n\t\t\"cvv\": \"234\",\n    \"expiry\": {\n      \"year\": 2030,\n      \"month\": 12\n    },\n\t\t\"scheme\": \"visa\"\n  },\n  \"refund\": {\n    \"amount\": 100,\n    \"currency\": \"EUR\",\n    \"localTransactionDateTime\": \"2006-02-28T15:04:05Z\",\n\t\t\"source\": \"moto\"\n  },\n\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n     \"categoryCode\": 1334,\n     \"cardAcceptorID\": \"123456789012\",\n\t\t\"postalCode\": \"4847CV\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_3537f2b62ee94e6882ad42d47164458d"
+        },
+        {
+          "id": "pair_4860f40361214f2881403c90cb3a5e60",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_refund_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1650367521163,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_71170c7aab034541b3b2f2e5a6c1a23e",
+      "parentId": "fld_31671832806543d086e26dfe4c05ca2c",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/refunds",
+      "name": "Mastercard Refund",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"card\": {\n    \"holder\": \"B A Vision VISAAAAA\",\n    \"number\": \"2223001760002704\",\n\t\t\"cvv\": \"083\", \n    \"expiry\": {\n      \"year\": 2030,\n      \"month\": 12\n    },\n\t\t\"scheme\": \"mastercard\"\n  },\n  \"refund\": {\n    \"amount\": 100,\n    \"currency\": \"EUR\",\n    \"localTransactionDateTime\": \"2006-02-28T15:04:05Z\",\n\t\t\"source\": \"moto\"\n  },\n\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n     \"categoryCode\": \"1334\",\n     \"cardAcceptorID\": \"123456789012\",\n\t\t\"postalCode\": \"4847CV\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_3537f2b62ee94e6882ad42d47164458d"
+        },
+        {
+          "id": "pair_4860f40361214f2881403c90cb3a5e60",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_refund_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1650375042936,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_79e3ee5d49374805a910ee90cabb654e",
+      "parentId": "fld_80f961389a5c475c95188d24f029aa33",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations/authorization/:authorizationId",
+      "name": "GetAuthorization",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "id": "pair_37bd6ee9cf8f4addb5e964f89d4964b4",
+          "name": "reference",
+          "value": "ABC123",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_dda76f343d5a424987ad73f71e22683f",
+          "name": "amount",
+          "value": "10000",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_83b1387b3c004cd2914bf93aefdf7540",
+          "name": "processingDate",
+          "value": "2022-02-10",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_2bca7365b9bb4ea1899aea05fa49a347",
+          "name": "pan",
+          "value": "1411",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_218ccf36c7e14897a17e3172a919605c",
+          "name": "status",
+          "value": "approved",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_a9c6297bbb654fad98e330eb1b45de6c",
+          "name": "exemption",
+          "value": "mit",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_2cc1cb17969949d99cdb4ce0d4405e6b",
+          "name": "responseCode",
+          "value": "1",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_cc414d327968484ca75343fc9805a724",
+          "name": "traceId",
+          "value": "1",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_23144f29958945d1845ffc9728eb6512",
+          "name": "page",
+          "value": "1",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_dc0f7c1ecc7748f4a61546d1a22b7274",
+          "name": "pageSize",
+          "value": "15",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_ec9c93a14dd74c08bc5963cfb9aa465a",
+          "name": "sort",
+          "value": "amount",
+          "description": "",
+          "disabled": true
+        }
+      ],
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.get_authorizations_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1648189792678,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_80f961389a5c475c95188d24f029aa33",
+      "parentId": "wrk_f4c46a9a6e0142ebbe5b7684ec7b2a58",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "Authorize",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1652080834458,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_816330b178ea4e37a640f81bd7639082",
+      "parentId": "fld_80f961389a5c475c95188d24f029aa33",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations/captures/?ids=",
+      "name": "GetCapturesByAuthorizationIDs",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "id": "pair_37bd6ee9cf8f4addb5e964f89d4964b4",
+          "name": "reference",
+          "value": "ABC123",
+          "description": ""
+        },
+        {
+          "id": "pair_dda76f343d5a424987ad73f71e22683f",
+          "name": "amount",
+          "value": "10000",
+          "description": ""
+        },
+        {
+          "id": "pair_83b1387b3c004cd2914bf93aefdf7540",
+          "name": "processingDate",
+          "value": "2022-02-10",
+          "description": ""
+        },
+        {
+          "id": "pair_2bca7365b9bb4ea1899aea05fa49a347",
+          "name": "pan",
+          "value": "1411",
+          "description": ""
+        },
+        {
+          "id": "pair_218ccf36c7e14897a17e3172a919605c",
+          "name": "status",
+          "value": "approved",
+          "description": ""
+        },
+        {
+          "id": "pair_a9c6297bbb654fad98e330eb1b45de6c",
+          "name": "exemption",
+          "value": "mit",
+          "description": ""
+        },
+        {
+          "id": "pair_2cc1cb17969949d99cdb4ce0d4405e6b",
+          "name": "responseCode",
+          "value": "1",
+          "description": ""
+        },
+        {
+          "id": "pair_cc414d327968484ca75343fc9805a724",
+          "name": "traceId",
+          "value": "1",
+          "description": ""
+        },
+        {
+          "id": "pair_23144f29958945d1845ffc9728eb6512",
+          "name": "page",
+          "value": "1",
+          "description": ""
+        },
+        {
+          "id": "pair_dc0f7c1ecc7748f4a61546d1a22b7274",
+          "name": "pageSize",
+          "value": "15",
+          "description": ""
+        },
+        {
+          "id": "pair_ec9c93a14dd74c08bc5963cfb9aa465a",
+          "name": "sort",
+          "value": "amount",
+          "description": ""
+        }
+      ],
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.get_authorizations_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1647737083472,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_b398e90f40034c04acb0446bb2f2e36b",
+      "parentId": "fld_80f961389a5c475c95188d24f029aa33",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}/v1/authorizations/08677f50-7b59-4f23-a239-54ba1e61f159/captures",
+      "name": "Create Capture",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n    \"amount\": 50,\n    \"isFinal\": false,\n\t\t\"currency\": \"EUR\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+        },
+        {
+          "id": "pair_d6648892c15942609de097ace6b96770",
+          "name": "Cookie",
+          "value": "CMAuthentication=1234_employee",
+          "description": ""
+        },
+        {
+          "id": "pair_4d5b888395d347bd9d603a481645f965",
+          "name": "Accept-Encoding",
+          "value": "gzip, deflate, br",
+          "description": ""
+        },
+        {
+          "id": "pair_3edeeb51fa414bfea24be9b8d4220fc5",
+          "name": "Connection",
+          "value": "keep-alive",
+          "description": ""
+        },
+        {
+          "id": "pair_3e17c0a4ad8e41849f67e790ad815e21",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_capture_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1634955575105.9375,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_f5b0e250121a4fe0b0e12771fa4a586b",
+      "parentId": "fld_80f961389a5c475c95188d24f029aa33",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations",
+      "name": "GetAllAuthorizations",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "id": "pair_37bd6ee9cf8f4addb5e964f89d4964b4",
+          "name": "reference",
+          "value": "c508df03-4dfc-4e6d-b08d-b8135c4cfbfc",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_dda76f343d5a424987ad73f71e22683f",
+          "name": "amount",
+          "value": "100",
+          "description": "",
+          "disabled": false
+        },
+        {
+          "id": "pair_83b1387b3c004cd2914bf93aefdf7540",
+          "name": "processingDate",
+          "value": "2022-02-10",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_2bca7365b9bb4ea1899aea05fa49a347",
+          "name": "pan",
+          "value": "1411",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_218ccf36c7e14897a17e3172a919605c",
+          "name": "status",
+          "value": "approved",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_a9c6297bbb654fad98e330eb1b45de6c",
+          "name": "exemption",
+          "value": "mit",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_2cc1cb17969949d99cdb4ce0d4405e6b",
+          "name": "responseCode",
+          "value": "1",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_cc414d327968484ca75343fc9805a724",
+          "name": "traceId",
+          "value": "1",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_23144f29958945d1845ffc9728eb6512",
+          "name": "page",
+          "value": "1",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_dc0f7c1ecc7748f4a61546d1a22b7274",
+          "name": "pageSize",
+          "value": "15",
+          "description": "",
+          "disabled": true
+        },
+        {
+          "id": "pair_ec9c93a14dd74c08bc5963cfb9aa465a",
+          "name": "sort",
+          "value": "amount",
+          "description": "",
+          "disabled": true
+        }
+      ],
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.get_authorizations_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1648642501884,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_4d783c747b034e81ad1bec6bcac97405",
+      "parentId": "fld_a9631d45f71a4eada698009c1bdc36f0",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations/3cd8f730-7187-4dc3-b9bf-b572561ce14f/reversals",
+      "name": "Reversal OK",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_fe2cfdc99b06480ea633bebffa39caff"
+        },
+        {
+          "id": "pair_f6354097fdb2493682c5c0b92a4cd3b8",
+          "name": "nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_reversal_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1651750446238,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_a9631d45f71a4eada698009c1bdc36f0",
+      "parentId": "wrk_f4c46a9a6e0142ebbe5b7684ec7b2a58",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "Reversal",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1651750405804,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_4084e2e1602a4cb3b830f87d73684b76",
+      "parentId": "fld_20f8138ac0a04bbca72e885639886c64",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations/{% response 'body', 'req_84132e037f7a4896896261e947ce7e90', 'b64::JC5pZA==::46b', 'always', 60 %}/reversals/{{ _.baseURL }}v1/authorizations",
+      "name": "Create Authorization Initial Recurring",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"card\": {\n    \"holder\": \"P A Vision VISAAAAA\",\n    \"number\": \"2223001760002704\",\n\t\t\t\"scheme\": \"mastercard\",\n\t\t\t\"expiry\": {\n\t\t\t\t\t\"year\": 2030,\n\t\t\t\t\t\"month\": 12\n\t\t\t},\n    \"cvv\": \"123\"\n  },\n\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"4899AL\",\n     \"categoryCode\": \"1334\",\n     \"cardAcceptorID\": \"123456789012\"\n\t},\n  \"transaction\": {\n    \"reference\": \"\",\n    \"amount\": 100,\n    \"currency\": \"EUR\",\n    \"localTransactionDateTime\": \"2021-08-09T15:10:22Z\",\n    \"source\": \"ecommerce\",\n    \"authorizationType\": \"finalAuthorization\"\n  },\n   \"threeDSecure\": {\n\t\t   \"version\": \"2\",\n       \"ecommerceIndicator\": \"2\",\n       \"authenticationVerificationValue\": \"jI3JBkkaQ1p8CBAAABy0CHUAAAA=\",\n       \"directoryServerID\": \"3bd2137d-08f1-4feb-ba50-3c2d4401c91a\"\n    },\n\t\"recurring\": {\n\t\t\t\"initial\": true\n\t\t},\n    \"consumerInfo\": {\n\t\t\t\"ipAddress\": \"IpAddress\",\n\t\t\t\"firstName\": \"FirstName\",\n\t\t\t\"lastName\": \"LastName\",\n\t\t\t\"emailAddress\": \"EmailAddress@mail.com\",\n\t\t\t\"companyName\": \"CM\",\n\t\t\t\"billingAddress\": {\n\t\t\t\t\"street\": \"Street\",\n\t\t\t\t\"postalCode\": \"PostalCode\",\n\t\t\t\t\"city\": \"City\",\n\t\t\t\t\"countryCode\": \"NLD\"\n\t\t\t},\n\t\t\t\"shippingAddress\": {\n\t\t\t\t\"street\": \"Street\",\n\t\t\t\t\"postalCode\": \"PostalCode\",\n\t\t\t\t\"city\": \"City\",\n\t\t\t\t\"countryCode\": \"NLD\"\n\t\t\t\t}\n\t\t }\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+        },
+        {
+          "id": "pair_d6648892c15942609de097ace6b96770",
+          "name": "Cookie",
+          "value": "CMAuthentication=1234_employee",
+          "description": ""
+        },
+        {
+          "id": "pair_4d5b888395d347bd9d603a481645f965",
+          "name": "Accept-Encoding",
+          "value": "gzip, deflate, br",
+          "description": ""
+        },
+        {
+          "id": "pair_3edeeb51fa414bfea24be9b8d4220fc5",
+          "name": "Connection",
+          "value": "keep-alive",
+          "description": ""
+        },
+        {
+          "id": "pair_0f4bc3e799554c10a3db9c6ed9037666",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1646831665010,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_20f8138ac0a04bbca72e885639886c64",
+      "parentId": "fld_80f961389a5c475c95188d24f029aa33",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "Mastercard",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1662367354007,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_4f37538996de4117996693c4261dd735",
+      "parentId": "fld_20f8138ac0a04bbca72e885639886c64",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations",
+      "name": "Create Moto Authorization",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n   \"card\": {\n\t\t \t\t\"holder\": \"End2End Test\",\n        \"scheme\": \"mastercard\",\n        \"number\": \"5413330002001411\",\n\t\t \t\t\"expiry\": {\n            \"year\": 2030,\n            \"month\": 12\n        },\n        \"cvv\": \"123\"\n    },\n  \"transaction\": {\n    \"reference\": \"Test 0400016 9000\",\n    \"amount\": 120,\n    \"currency\": \"EUR\",\n    \"localTransactionDateTime\": \"2021-08-09T15:10:22+02:00\",\n\t\t\"authorizationType\": \"finalAuthorization\",\n    \"source\": \"moto\"\n  },\n\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"4899AL\",\n     \"categoryCode\": \"3000\",\n     \"cardAcceptorID\": \"123456789012\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+        },
+        {
+          "id": "pair_d6648892c15942609de097ace6b96770",
+          "name": "Cookie",
+          "value": "CMAuthentication=1234_employee",
+          "description": ""
+        },
+        {
+          "id": "pair_4d5b888395d347bd9d603a481645f965",
+          "name": "Accept-Encoding",
+          "value": "gzip, deflate, br",
+          "description": ""
+        },
+        {
+          "id": "pair_3edeeb51fa414bfea24be9b8d4220fc5",
+          "name": "Connection",
+          "value": "keep-alive",
+          "description": ""
+        },
+        {
+          "id": "pair_1f81ca0bc5af40feba3c10e708947586",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1646831664935,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_7d4889cf47bd4eccb2c64495626e7177",
+      "parentId": "fld_20f8138ac0a04bbca72e885639886c64",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations",
+      "name": "Simple",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"reference\": \"Test 0400016 9000\",\n\t\"currency\": \"EUR\",\n\t\"amount\": 100,\n\t\"localTransactionDateTime\": \"2021-08-09 15:10:22\",\n\t\"source\": \"ecommerce\",\n\t\"authorizationType\": \"finalAuthorization\",\n  \"card\": {\n    \"holder\": \"P A Vision VISAAAAA\",\n    \"number\": \"5204740000001002\",\n\t\t\"cvv\": \"234\",\n    \"expiry\": {\n      \"year\": \"30\",\n      \"month\": \"12\"\n    },\n\t\t\"scheme\": \"mastercard\"\n  },\n\t\t\"cardAcceptor\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"4899AL\",\n     \"categoryCode\": \"0742\",\n     \"id\": \"123456789012\"\n\t},\n\t\"threeDSecure\": {\n\t\t\"ecommerceIndicator\": \"02\",\n\t\t\"authenticationVerificationValue\": \"jI3JBkkaQ1p8CBAAABy0CHUAAAA=\",\n\t\t\"directoryServerTransactionId\": \"3bd2137d-08f1-4feb-ba50-3c2d4401c91a\",\n\t\t\"version\": \"2\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+        },
+        {
+          "id": "pair_f40e3425b914404f854dea435edb6f28",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1646831665060,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_b7f5e891e5634a8ba469c62b234a564b",
+      "parentId": "fld_20f8138ac0a04bbca72e885639886c64",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations",
+      "name": "Create Subsequent Recurring",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n   \"card\": {\n\t\t\"holder\": \"P A Vision VISAAAAA\",\n    \"number\": \"2223001760002704\",\n    \"scheme\": \"mastercard\",\n\t\t\"expiry\": {\n\t\t\t\t\"year\": 2030,\n\t\t\t\t\"month\": 12\n\t\t},\n\t\t\"cvv\": \"123\"\n  },\n  \"transaction\": {\n    \"reference\": \"Test 0400016 9000\",\n    \"amount\": 120,\n    \"currency\": \"EUR\",\n    \"localTransactionDateTime\": \"2021-08-09T15:10:22+02:00\",\n\t\t\"authorizationType\": \"finalAuthorization\",\n    \"source\": \"ecommerce\"\n  },\n  \"recurring\": {\n\t\t\"subsequent\": true,\n\t\t\"traceID\": \"MAB0110A00905\"\n  },\n\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t\t\"postalCode\": \"4899AL\",\n     \"categoryCode\": \"1334\",\n     \"cardAcceptorID\": \"123456789012\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+        },
+        {
+          "id": "pair_d6648892c15942609de097ace6b96770",
+          "name": "Cookie",
+          "value": "CMAuthentication=1234_employee",
+          "description": ""
+        },
+        {
+          "id": "pair_4d5b888395d347bd9d603a481645f965",
+          "name": "Accept-Encoding",
+          "value": "gzip, deflate, br",
+          "description": ""
+        },
+        {
+          "id": "pair_3edeeb51fa414bfea24be9b8d4220fc5",
+          "name": "Connection",
+          "value": "keep-alive",
+          "description": ""
+        },
+        {
+          "id": "pair_8db2ffb1987743368a810dde539d24e1",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1646831664910,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_df0957c767724f06847fe6c7f54aef20",
+      "parentId": "fld_20f8138ac0a04bbca72e885639886c64",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations",
+      "name": "Create Authorization Exemption",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"card\": {\n    \"holder\": \"End2End Test\",\n    \"scheme\": \"mastercard\",\n    \"number\": \"5413330002001411\",\n    \"expiry\": {\n      \"year\": 2026,\n      \"month\": 12\n    },\n    \"cvv\": \"123\"\n  },\n\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t\t\"postalCode\": \"4899AL\",\n     \"categoryCode\": \"1334\",\n     \"cardAcceptorID\": \"123456789012\"\n\t},\n  \"transaction\": {\n    \"reference\": \"Test 0400016 9000\",\n    \"amount\": 100,\n    \"currency\": \"EUR\",\n    \"localTransactionDateTime\": \"2021-08-09T15:10:22+02:00\",\n    \"source\": \"ecommerce\",\n    \"authorizationType\": \"finalAuthorization\",\n\t\t\t\"exemption\": {\n\t\t\t\"type\": \"merchantInitiated\",\n\t\t\t\"reason\": \"delayedCharges\"\n\t\t}\n  },\n  \"consumerInfo\": {\n    \"ipAddress\": \"IpAddress\",\n    \"firstName\": \"FirstName\",\n    \"lastName\": \"LastName\",\n    \"emailAddress\": \"EmailAddress@mail.com\",\n    \"companyName\": \"CM\",\n    \"billingAddress\": {\n      \"street\": \"Street\",\n      \"postalCode\": \"PostalCode\",\n      \"city\": \"City\",\n      \"countryCode\": \"NLD\"\n    },\n    \"shippingAddress\": {\n      \"street\": \"Street\",\n      \"postalCode\": \"PostalCode\",\n      \"city\": \"City\",\n      \"countryCode\": \"NLD\"\n    }\n  }\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+        },
+        {
+          "id": "pair_d6648892c15942609de097ace6b96770",
+          "name": "Cookie",
+          "value": "CMAuthentication=1234_employee",
+          "description": ""
+        },
+        {
+          "id": "pair_4d5b888395d347bd9d603a481645f965",
+          "name": "Accept-Encoding",
+          "value": "gzip, deflate, br",
+          "description": ""
+        },
+        {
+          "id": "pair_3edeeb51fa414bfea24be9b8d4220fc5",
+          "name": "Connection",
+          "value": "keep-alive",
+          "description": ""
+        },
+        {
+          "id": "pair_c4bc041e11a44f59afb392fedf80b314",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1646831664960,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_936c7d2540d849239f1a9f04cfbf6274",
+      "parentId": "fld_ead1520649c14c5c8ee780889dd787d6",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations/",
+      "name": "visaSimple",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"reference\": \"Test 0400016 9000\",\n\t\"currency\": \"EUR\",\n\t\"amount\": 100,\n\t\"localTransactionDateTime\": \"2021-08-09 15:10:22\",\n\t\"source\": \"ecommerce\",\n\t\"authorizationType\": \"finalAuthorization\",\n  \"card\": {\n    \"holder\": \"P A Vision VISAAAAA\",\n    \"number\": \"2223001760002704\",\n\t\t\"cvv\": \"234\",\n    \"expiry\": {\n      \"year\": \"30\",\n      \"month\": \"12\"\n    },\n\t\t\"scheme\": \"visa\"\n  },\n\t\"cardAcceptor\": {\n\t  \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"4899AL\",\n     \"categoryCode\": \"0742\",\n     \"id\": \"123456789012\"\n\t},\n\t\"threeDSecure\": {\n\t\t\"ecommerceIndicator\": \"5\",\n\t\t\"authenticationVerificationValue\": \"jI3JBkkaQ1p8CBAAABy0CHUAAAA=\",\n\t\t\"directoryServerTransactionId\": \"3bd2137d-08f1-4feb-ba50-3c2d4401c91a\",\n\t\t\"version\": \"2\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_926474edc9504fe7a688c0a14bd96f7f"
+        },
+        {
+          "id": "pair_a067a2a41d7e427ca9c26b999e3d9792",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1660733439589,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_ead1520649c14c5c8ee780889dd787d6",
+      "parentId": "fld_80f961389a5c475c95188d24f029aa33",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "Visa",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1662367309676,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_a02c59a37aea47b492f6bf69ef2bc77f",
+      "parentId": "fld_ead1520649c14c5c8ee780889dd787d6",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations",
+      "name": "Create Authorization Exemption",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"reference\": \"Test 0400016 9000\",\n\t\"currency\": \"EUR\",\n\t\"amount\": 100,\n\t\"localTransactionDateTime\": \"2021-08-09 15:10:22\",\n\t\"source\": \"ecommerce\",\n\t\"authorizationType\": \"finalAuthorization\",\n  \"card\": {\n   \"holder\": \"P A Vision VISAAAAA\",\n   \"number\": \"2223001760002704\",\n\t \"cvv\": \"234\",\n   \"expiry\": {\n      \"year\": \"30\",\n      \"month\": \"12\"\n    }\n  },\n\t\"cardAcceptor\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"4899AL\",\n     \"categoryCode\": \"0742\",\n     \"id\": \"123456789012\"\n\t},\n  \"exemption\":  \"lowValue\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+        },
+        {
+          "id": "pair_d6648892c15942609de097ace6b96770",
+          "name": "Cookie",
+          "value": "CMAuthentication=1234_employee",
+          "description": ""
+        },
+        {
+          "id": "pair_4d5b888395d347bd9d603a481645f965",
+          "name": "Accept-Encoding",
+          "value": "gzip, deflate, br",
+          "description": ""
+        },
+        {
+          "id": "pair_3edeeb51fa414bfea24be9b8d4220fc5",
+          "name": "Connection",
+          "value": "keep-alive",
+          "description": ""
+        },
+        {
+          "id": "pair_c4bc041e11a44f59afb392fedf80b314",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1660733439514,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_d30ca0363dc64abd8ddd82e52e365227",
+      "parentId": "fld_ead1520649c14c5c8ee780889dd787d6",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations/",
+      "name": "visa Subsequent Recurring",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"card\": {\n    \"holder\": \"P A Vision VISAAAAA\",\n    \"number\": \"2223001760002704\",\n\t\t\"cvv\": \"234\",\n    \"expiry\": {\n      \"year\": 2030,\n      \"month\": 12\n    },\n\t\t\"scheme\": \"visa\"\n  },\n\t\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"4899AL\",\n     \"categoryCode\": 1334,\n     \"cardAcceptorID\": \"123456789012123\"\n\t},\n  \"transaction\": {\n    \"reference\": \"Test 0400016 9000\",\n    \"amount\": 100,\n    \"currency\": \"EUR\",\n    \"localTransactionDateTime\": \"2021-08-09T15:10:22+02:00\",\n    \"source\": \"ecommerce\",\n    \"authorizationType\": \"finalAuthorization\"\n  },\n  \"risk\": {\n    \"fingerprintSessionID\": \"some-id\"\n  },\n\t\"recurring\": {\n\t\t\"subsequent\": true\n  },\n\t\"threeDSecure\": {\n\t\t\"ecommerceIndicator\": \"00\",\n\t\t\"authenticationVerificationValue\": \"jI3JBkkaQ1p8CBAAABy0CHUAAAA=\",\n\t\t\"directoryServerID\": \"3bd2137d-08f1-4feb-ba50-3c2d4401c91a\",\n\t\t\"version\": \"2\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_926474edc9504fe7a688c0a14bd96f7f"
+        },
+        {
+          "id": "pair_a067a2a41d7e427ca9c26b999e3d9792",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1660733439489,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_f49bbd2c4d934acfbe0fb3d640140ce2",
+      "parentId": "fld_ead1520649c14c5c8ee780889dd787d6",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations/",
+      "name": "visa Initial Recurring",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"card\": {\n    \"holder\": \"P A Vision VISAAAAA\",\n    \"number\": \"2223001760002704\",\n\t\t\"cvv\": \"234\",\n    \"expiry\": {\n      \"year\": 2030,\n      \"month\": 12\n    },\n\t\t\"scheme\": \"visa\"\n  },\n\t\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"4899AL\",\n     \"categoryCode\": 1334,\n     \"cardAcceptorID\": \"123456789012123\"\n\t},\n  \"transaction\": {\n    \"reference\": \"Test 0400016 9000\",\n    \"amount\": 100,\n    \"currency\": \"EUR\",\n    \"localTransactionDateTime\": \"2021-08-09T15:10:22+02:00\",\n    \"source\": \"ecommerce\",\n    \"authorizationType\": \"finalAuthorization\"\n  },\n  \"risk\": {\n    \"fingerprintSessionID\": \"some-id\"\n  },\n\t\"threeDSecure\": {\n\t\t\"ecommerceIndicator\": \"00\",\n\t\t\"authenticationVerificationValue\": \"jI3JBkkaQ1p8CBAAABy0CHUAAAA=\",\n\t\t\"directoryServerID\": \"3bd2137d-08f1-4feb-ba50-3c2d4401c91a\",\n\t\t\"version\": \"2\"\n\t},\n\t\"recurring\": {\n\t\t\"initial\": true\n  }\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_926474edc9504fe7a688c0a14bd96f7f"
+        },
+        {
+          "id": "pair_a067a2a41d7e427ca9c26b999e3d9792",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1660733439539,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_071ec87ba9374a4ba03ba6b4aec1ad7a",
+      "parentId": "fld_0d44cc0cc8e44c66ae71fa0d8621b843",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}/v1/authorizations",
+      "name": "12.8 E-commerce Merchandise Credit Return",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"reference\": \"VISA Cert Test 12.8 E-Commerce Merchandise Credit Return\",\n  \"currency\": \"EUR\",\n  \"amount\": 100,\n  \"localTransactionDateTime\": \"2021-08-09 15:10:22\",\n  \"source\": \"ecommerce\",\n  \"authorizationType\": \"finalAuthorization\",\n  \"card\": {\n    \"holder\": \"VISA Cert\",\n    \"number\": \"{{ _.testcards[1] }}\",\n    \"cvv\": \"946\",\n    \"expiry\": {\n      \"year\": \"30\",\n      \"month\": \"12\"\n    }\n  },\n  \"cardAcceptor\": {\n    \"name\": \"MaxCorp\",\n    \"city\": \"Breda\",\n    \"country\": \"NLD\",\n    \"postalCode\": \"4899AL\",\n    \"categoryCode\": \"0742\",\n    \"id\": \"123456789012\"\n  }\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_cfa5a69a719b46b29bc7a3e859ba6e25"
+        },
+        {
+          "id": "pair_c6da5ba3c12c4328b079e94e28e4f569",
+          "name": "nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1673012743578,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_0d44cc0cc8e44c66ae71fa0d8621b843",
+      "parentId": "fld_af673346426f44f290eb3bf553d881f7",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "Ecommerce Merchandise Credit Return",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1673012727640,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_af673346426f44f290eb3bf553d881f7",
+      "parentId": "wrk_f4c46a9a6e0142ebbe5b7684ec7b2a58",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "VISA Certification",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1646831652169,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_3df99b5e2b6a4c3ab0eeea3701716759",
+      "parentId": "fld_372fb0f2c54148f889e8b32f3d2deec8",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations/",
+      "name": "12.4 E-Commerce Authorization with omitted CVV2",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"reference\": \"VISA Cert Test 12.4 E-Commerce Authorization with omitted CVV2\",\n  \"currency\": \"EUR\",\n  \"amount\": 100,\n  \"localTransactionDateTime\": \"2021-08-09 15:10:22\",\n  \"source\": \"ecommerce\",\n  \"authorizationType\": \"finalAuthorization\",\n  \"card\": {\n    \"holder\": \"VISA Cert\",\n    \"number\": \"{{ _.testcards[1] }}\",\n    \"cvv\": \"\",\n    \"expiry\": {\n      \"year\": \"30\",\n      \"month\": \"12\"\n    }\n  },\n  \"cardAcceptor\": {\n    \"name\": \"MaxCorp\",\n    \"city\": \"Breda\",\n    \"country\": \"NLD\",\n    \"postalCode\": \"4899AL\",\n    \"categoryCode\": \"0742\",\n    \"id\": \"123456789012\"\n  }\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_4e692f168a73459bbabc2ee4606edd44"
+        },
+        {
+          "id": "pair_73dbb16b0ca74f0aab3f1264cef15411",
+          "name": "nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1672498358456.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_372fb0f2c54148f889e8b32f3d2deec8",
+      "parentId": "fld_af673346426f44f290eb3bf553d881f7",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "E-Commerce Authorizations with CVV2",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1672666893569,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_85205e221a6f4c13bac5e48fe99d8b13",
+      "parentId": "fld_372fb0f2c54148f889e8b32f3d2deec8",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations/",
+      "name": "12.1 E-Commerce Authorization with CVV2",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"reference\": \"VISA Cert Test 12.1 E-Commerce Authorization with CVV2\",\n  \"currency\": \"EUR\",\n  \"amount\": 100,\n  \"localTransactionDateTime\": \"2021-08-09 15:10:22\",\n  \"source\": \"ecommerce\",\n  \"authorizationType\": \"finalAuthorization\",\n  \"card\": {\n    \"holder\": \"VISA Cert\",\n    \"number\": \"{{ _.testcards[1] }}\",\n    \"cvv\": \"946\",\n    \"expiry\": {\n      \"year\": \"30\",\n      \"month\": \"12\"\n    }\n  },\n  \"cardAcceptor\": {\n    \"name\": \"MaxCorp\",\n    \"city\": \"Breda\",\n    \"country\": \"NLD\",\n    \"postalCode\": \"4899AL\",\n    \"categoryCode\": \"0742\",\n    \"id\": \"123456789012\"\n  }\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_4e692f168a73459bbabc2ee4606edd44"
+        },
+        {
+          "id": "pair_73dbb16b0ca74f0aab3f1264cef15411",
+          "name": "nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1672667052147,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_b706ecea656243e896e87297ae15472e",
+      "parentId": "fld_372fb0f2c54148f889e8b32f3d2deec8",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations/",
+      "name": "12.3 E-Commerce Authorization with incorrect CVV2",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"reference\": \"VISA Cert Test 12.4 E-Commerce Authorization with incorrect CVV2\",\n  \"currency\": \"EUR\",\n  \"amount\": 100,\n  \"localTransactionDateTime\": \"2021-08-09 15:10:22\",\n  \"source\": \"ecommerce\",\n  \"authorizationType\": \"finalAuthorization\",\n  \"card\": {\n    \"holder\": \"VISA Cert\",\n    \"number\": \"{{ _.testcards[1] }}\",\n    \"cvv\": \"123\",\n    \"expiry\": {\n      \"year\": \"30\",\n      \"month\": \"12\"\n    }\n  },\n  \"cardAcceptor\": {\n    \"name\": \"MaxCorp\",\n    \"city\": \"Breda\",\n    \"country\": \"NLD\",\n    \"postalCode\": \"4899AL\",\n    \"categoryCode\": \"0742\",\n    \"id\": \"123456789012\"\n  }\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_4e692f168a73459bbabc2ee4606edd44"
+        },
+        {
+          "id": "pair_73dbb16b0ca74f0aab3f1264cef15411",
+          "name": "nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1672414011611.25,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_96310dece2454bba819e8047bb4b4e62",
+      "parentId": "fld_ffbb1fd211d94cb0b1123caeafd46f8b",
+      "modified": 1673958980029,
+      "created": 1673958980029,
+      "url": "{{ _.baseURL }}v1/refunds",
+      "name": "Credit voucher authorization 3.5 (refund)",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"reference\": \"Credit voucher authorization 3.5\",\n\t\"currency\": \"EUR\",\n\t\"amount\": 100,\n\t\"localTransactionDateTime\": \"2021-08-09 15:10:22\",\n\t\"source\": \"ecommerce\",\n  \"card\": {\n    \"number\": \"2223001760002704\"\n  },\n\t\"cardAcceptor\": {\n\t\t\"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"4899AL\",\n     \"categoryCode\": \"0742\",\n     \"id\": \"123456789012\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_96b4d524262d497aa3c709177218bd84"
+        },
+        {
+          "id": "pair_b9dfd194dd094ca1aee44ccd73d27777",
+          "name": "nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_refund_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1673958980029,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_ffbb1fd211d94cb0b1123caeafd46f8b",
+      "parentId": "fld_af673346426f44f290eb3bf553d881f7",
+      "modified": 1673958975123,
+      "created": 1673958975123,
+      "name": "Credit voucher authorization",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1673958975123,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_0d3545b0e2754f25a36a162df78f1d31",
+      "parentId": "fld_99cba0e18e3840e6a5825b5049707236",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations",
+      "name": "Insecure Authorization",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"card\": {\n    \"holder\": \"P A Vision VISAAAAA\",\n    \"number\": \"2223001760002704\",\n\t\t\"cvv\": \"234\",\n    \"expiry\": {\n      \"year\": 2030,\n      \"month\": 12\n    },\n\t\t\"scheme\": \"mastercard\"\n  },\n\t\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"4899AL\",\n     \"categoryCode\": \"1334\",\n     \"cardAcceptorID\": \"123456789012\"\n\t},\n  \"transaction\": {\n    \"reference\": \"Test 0400016 9000\",\n    \"amount\": 100,\n    \"currency\": \"EUR\",\n    \"localTransactionDateTime\": \"2021-08-09T15:10:22+02:00\",\n    \"source\": \"ecommerce\",\n    \"authorizationType\": \"finalAuthorization\"\n  },\n  \"risk\": {\n    \"fingerprintSessionID\": \"some-id\"\n  }\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+        },
+        {
+          "id": "pair_f40e3425b914404f854dea435edb6f28",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1663636429583.7344,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_99cba0e18e3840e6a5825b5049707236",
+      "parentId": "fld_20f8138ac0a04bbca72e885639886c64",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "422 - Validation",
+      "description": "Requests that return specific validation errors",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1663682508840,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_150ddc7aeb594df2bb3b164c37f6e77a",
+      "parentId": "fld_99cba0e18e3840e6a5825b5049707236",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations",
+      "name": "Invalid Recurring",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"card\": {\n    \"holder\": \"P A Vision VISAAAAA\",\n    \"number\": \"2223001760002704\",\n\t\t\"cvv\": \"234\",\n    \"expiry\": {\n      \"year\": 2030,\n      \"month\": 12\n    },\n\t\t\"scheme\": \"mastercard\"\n  },\n\t\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"4899AL\",\n     \"categoryCode\": \"1334\",\n     \"cardAcceptorID\": \"123456789012\"\n\t},\n  \"transaction\": {\n    \"reference\": \"Test 0400016 9000\",\n    \"amount\": 100,\n    \"currency\": \"EUR\",\n    \"localTransactionDateTime\": \"2021-08-09T15:10:22+02:00\",\n    \"source\": \"ecommerce\",\n    \"authorizationType\": \"finalAuthorization\",\n\t\t\"initialRecurring\": true\n  },\n\t\"recurring\": {\n\t\t\"traceID\": \"TradeID33333333\"\n\t},\n  \"risk\": {\n    \"fingerprintSessionID\": \"some-id\"\n  },\n\t\"threeDSecure\": {\n\t\t\"ecommerceIndicator\": \"00\",\n\t\t\"authenticationVerificationValue\": \"jI3JBkkaQ1p8CBAAABy0CHUAAAA=\",\n\t\t\"directoryServerID\": \"3bd2137d-08f1-4feb-ba50-3c2d4401c91a\",\n\t\t\"version\": \"2\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+        },
+        {
+          "id": "pair_f40e3425b914404f854dea435edb6f28",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1663498191964.9375,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_1602ba0353ca40298879059dbd1323d4",
+      "parentId": "fld_99cba0e18e3840e6a5825b5049707236",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations",
+      "name": "Invalid Merchant",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"card\": {\n    \"holder\": \"P A Vision VISAAAAA\",\n    \"number\": \"2223001760002704\",\n\t\t\"cvv\": \"234\",\n    \"expiry\": {\n      \"year\": 2030,\n      \"month\": 12\n    },\n\t\t\"scheme\": \"mastercard\"\n  },\n\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"\",\n     \"categoryCode\": \"1334\",\n     \"cardAcceptorID\": \"12345678901288\"\n\t},\n  \"transaction\": {\n    \"reference\": \"Test 0400016 9000\",\n    \"amount\": 100,\n    \"currency\": \"EUR\",\n    \"localTransactionDateTime\": \"2021-08-09T15:10:22+02:00\",\n    \"source\": \"ecommerce\",\n    \"authorizationType\": \"finalAuthorization\"\n  },\n  \"risk\": {\n    \"fingerprintSessionID\": \"some-id\"\n  },\n\t\"threeDSecure\": {\n\t\t\"ecommerceIndicator\": \"00\",\n\t\t\"authenticationVerificationValue\": \"jI3JBkkaQ1p8CBAAABy0CHUAAAA=\",\n\t\t\"directoryServerID\": \"3bd2137d-08f1-4feb-ba50-3c2d4401c91a\",\n\t\t\"version\": \"2\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+        },
+        {
+          "id": "pair_f40e3425b914404f854dea435edb6f28",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1663682508790,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_86cb975bd6494b7fb246eeeee607173a",
+      "parentId": "fld_99cba0e18e3840e6a5825b5049707236",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations",
+      "name": "Invalid Card",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"card\": {\n    \"holder\": \"P A Vision VISAAAAA\",\n    \"number\": \"2223001760002704\",\n\t\t\"cvv\": \"234\",\n    \"expiry\": {\n      \"year\": 2010,\n      \"month\": 12\n    },\n\t\t\"scheme\": \"amex\"\n  },\n\t\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"4899AL\",\n     \"categoryCode\": \"1334\",\n     \"cardAcceptorID\": \"123456789012\"\n\t},\n  \"transaction\": {\n    \"reference\": \"Test 0400016 9000\",\n    \"amount\": 100,\n    \"currency\": \"EUR\",\n    \"localTransactionDateTime\": \"2021-08-09T15:10:22+02:00\",\n    \"source\": \"ecommerce\",\n    \"authorizationType\": \"finalAuthorization\"\n  },\n  \"risk\": {\n    \"fingerprintSessionID\": \"some-id\"\n  },\n\t\"threeDSecure\": {\n\t\t\"ecommerceIndicator\": \"00\",\n\t\t\"authenticationVerificationValue\": \"jI3JBkkaQ1p8CBAAABy0CHUAAAA=\",\n\t\t\"directoryServerID\": \"3bd2137d-08f1-4feb-ba50-3c2d4401c91a\",\n\t\t\"version\": \"2\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+        },
+        {
+          "id": "pair_f40e3425b914404f854dea435edb6f28",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1663313875139.875,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_b1a93f3e173f4fccb07ea5dbc69be71f",
+      "parentId": "fld_99cba0e18e3840e6a5825b5049707236",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations",
+      "name": "Invalid Initial Recurring",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"card\": {\n    \"holder\": \"P A Vision VISAAAAA\",\n    \"number\": \"2223001760002704\",\n\t\t\"cvv\": \"234\",\n    \"expiry\": {\n      \"year\": 2030,\n      \"month\": 12\n    },\n\t\t\"scheme\": \"mastercard\"\n  },\n\t\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"4899AL\",\n     \"categoryCode\": \"1334\",\n     \"cardAcceptorID\": \"123456789012\"\n\t},\n  \"transaction\": {\n    \"reference\": \"Test 0400016 9000\",\n    \"amount\": 100,\n    \"currency\": \"EUR\",\n    \"localTransactionDateTime\": \"2021-08-09T15:10:22+02:00\",\n    \"source\": \"ecommerce\",\n    \"authorizationType\": \"finalAuthorization\",\n\t\t\"initialRecurring\": true\n  },\n  \"risk\": {\n    \"fingerprintSessionID\": \"some-id\"\n  },\n\t\"threeDSecure\": {\n\t\t\"ecommerceIndicator\": \"00\",\n\t\t\"authenticationVerificationValue\": \"jI3JBkkaQ1p8CBAAABy0CHUAAAA=\",\n\t\t\"directoryServerID\": \"3bd2137d-08f1-4feb-ba50-3c2d4401c91a\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+        },
+        {
+          "id": "pair_f40e3425b914404f854dea435edb6f28",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1663590350377.4688,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_b569cbbeef8b4ec69c04684752ae1162",
+      "parentId": "fld_99cba0e18e3840e6a5825b5049707236",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations",
+      "name": "Invalid Transaction",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"card\": {\n    \"holder\": \"P A Vision VISAAAAA\",\n    \"number\": \"2223001760002704\",\n\t\t\"cvv\": \"234\",\n    \"expiry\": {\n      \"year\": 2030,\n      \"month\": 12\n    },\n\t\t\"scheme\": \"mastercard\"\n  },\n\t\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"4899AL\",\n     \"categoryCode\": \"1334\",\n     \"cardAcceptorID\": \"123456789012\"\n\t},\n  \"transaction\": {\n    \"reference\": \"Test 0400016 9000\",\n    \"amount\": 300000000,\n    \"currency\": \"DOL\",\n    \"localTransactionDateTime\": \"2021-08-09T15:10:22+02:00\",\n    \"source\": \"ecommerce\"\n  },\n  \"risk\": {\n    \"fingerprintSessionID\": \"some-id\"\n  },\n\t\"threeDSecure\": {\n\t\t\"ecommerceIndicator\": \"00\",\n\t\t\"authenticationVerificationValue\": \"jI3JBkkaQ1p8CBAAABy0CHUAAAA=\",\n\t\t\"directoryServerID\": \"3bd2137d-08f1-4feb-ba50-3c2d4401c91a\",\n\t\t\"version\": \"2\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+        },
+        {
+          "id": "pair_f40e3425b914404f854dea435edb6f28",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1662945241489.75,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_c96a336ee6004499a8e4c9f00b600205",
+      "parentId": "fld_99cba0e18e3840e6a5825b5049707236",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations",
+      "name": "Invalid 3DSecure",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"card\": {\n    \"holder\": \"P A Vision VISAAAAA\",\n    \"number\": \"2223001760002704\",\n\t\t\"cvv\": \"234\",\n    \"expiry\": {\n      \"year\": 2030,\n      \"month\": 12\n    },\n\t\t\"scheme\": \"mastercard\"\n  },\n\t\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"4899AL\",\n     \"categoryCode\": \"1334\",\n     \"cardAcceptorID\": \"123456789012\"\n\t},\n  \"transaction\": {\n    \"reference\": \"Test 0400016 9000\",\n    \"amount\": 100,\n    \"currency\": \"EUR\",\n    \"localTransactionDateTime\": \"2021-08-09T15:10:22+02:00\",\n    \"source\": \"ecommerce\",\n    \"authorizationType\": \"finalAuthorization\"\n  },\n  \"risk\": {\n    \"fingerprintSessionID\": \"some-id\"\n  },\n\t\"threeDSecure\": {\n\t\t\"ecommerceIndicator\": \"34\",\n\t\t\"authenticationVerificationValue\": \"jI3JBkkaQ1p8CBAAABy0CHUAAAA=\",\n\t\t\"directoryServerID\": \"3bd2137d-08f1-4feb-ba50-3c2d4401c91a\",\n\t\t\"version\": \"2\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+        },
+        {
+          "id": "pair_f40e3425b914404f854dea435edb6f28",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1663613389980.6016,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_dfe67bf394c54bbe8b42383c1e8a9d6e",
+      "parentId": "fld_99cba0e18e3840e6a5825b5049707236",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations",
+      "name": "Invalid Exemption",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"card\": {\n    \"holder\": \"P A Vision VISAAAAA\",\n    \"number\": \"2223001760002704\",\n\t\t\"cvv\": \"234\",\n    \"expiry\": {\n      \"year\": 2030,\n      \"month\": 12\n    },\n\t\t\"scheme\": \"mastercard\"\n  },\n\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"4899AL\",\n     \"categoryCode\": \"1334\",\n     \"cardAcceptorID\": \"123456789012\"\n\t},\n  \"transaction\": {\n    \"reference\": \"Test 0400016 9000\",\n    \"amount\": 100,\n    \"currency\": \"EUR\",\n    \"localTransactionDateTime\": \"2021-08-09T15:10:22+02:00\",\n    \"source\": \"ecommerce\",\n    \"authorizationType\": \"finalAuthorization\",\n\t\t\"exemption\": {\n\t\t\t\"type\": \"test\",\n\t\t\t\"reason\": \"wrongreason\"\n\t\t}\n  },\n  \"risk\": {\n    \"fingerprintSessionID\": \"some-id\"\n  },\n\t\"threeDSecure\": {\n\t\t\"ecommerceIndicator\": \"00\",\n\t\t\"authenticationVerificationValue\": \"jI3JBkkaQ1p8CBAAABy0CHUAAAA=\",\n\t\t\"directoryServerID\": \"3bd2137d-08f1-4feb-ba50-3c2d4401c91a\",\n\t\t\"version\": \"2\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+        },
+        {
+          "id": "pair_f40e3425b914404f854dea435edb6f28",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1663659469186.8672,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_e071843a91264211aa7c6ba861c79098",
+      "parentId": "fld_99cba0e18e3840e6a5825b5049707236",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations",
+      "name": "Invalid Source",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"card\": {\n    \"holder\": \"P A Vision VISAAAAA\",\n    \"number\": \"2223001760002704\",\n\t\t\"cvv\": \"234\",\n    \"expiry\": {\n      \"year\": 2030,\n      \"month\": 12\n    },\n\t\t\"scheme\": \"mastercard\"\n  },\n\t\t\"merchant\": {\n\t   \"name\": \"MaxCorp\",\n   \t \"city\": \"Breda\",\n     \"country\": \"NLD\",\n\t\t \"postalCode\": \"4899AL\",\n     \"categoryCode\": \"1334\",\n     \"cardAcceptorID\": \"123456789012\"\n\t},\n  \"transaction\": {\n    \"reference\": \"Test 0400016 9000\",\n    \"amount\": 100,\n    \"currency\": \"EUR\",\n    \"localTransactionDateTime\": \"2021-08-09T15:10:22+02:00\",\n    \"source\": \"fakeSource\",\n    \"authorizationType\": \"finalAuthorization\"\n  },\n  \"risk\": {\n    \"fingerprintSessionID\": \"some-id\"\n  },\n\t\"threeDSecure\": {\n\t\t\"ecommerceIndicator\": \"00\",\n\t\t\"authenticationVerificationValue\": \"jI3JBkkaQ1p8CBAAABy0CHUAAAA=\",\n\t\t\"directoryServerID\": \"3bd2137d-08f1-4feb-ba50-3c2d4401c91a\",\n\t\t\"version\": \"2\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_69c1f2da2bf94380a8e92617d839670f"
+        },
+        {
+          "id": "pair_f40e3425b914404f854dea435edb6f28",
+          "name": "Nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1662207974189.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_b533eba08ffe4f219232db1b5adca332",
+      "parentId": "fld_9dfd1740ab15410382fd8ecca1e70ce2",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "url": "{{ _.baseURL }}v1/authorizations/",
+      "name": "2.1 MOTO Authorization",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"reference\": \"VISA Cert Test 2.1 MOTO Authorization\",\n  \"currency\": \"EUR\",\n  \"amount\": 100,\n  \"localTransactionDateTime\": \"2021-08-09 15:10:22\",\n  \"source\": \"moto\",\n  \"authorizationType\": \"finalAuthorization\",\n  \"card\": {\n    \"holder\": \"VISA Cert\",\n    \"number\": \"{{ _.testcards[3] }}\",\n    \"cvv\": \"234\",\n    \"expiry\": {\n      \"year\": \"30\",\n      \"month\": \"12\"\n    }\n  },\n  \"cardAcceptor\": {\n    \"name\": \"MaxCorp\",\n    \"city\": \"Breda\",\n    \"country\": \"NLD\",\n    \"postalCode\": \"4899AL\",\n    \"categoryCode\": \"0742\",\n    \"id\": \"123456789012\"\n  }\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_3d7a8b0b5c6f40b99c5b24c58fa102fb"
+        },
+        {
+          "id": "pair_d52c550a812c4ccfb101372a29aa3056",
+          "name": "nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1672329664766,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": false,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_9dfd1740ab15410382fd8ecca1e70ce2",
+      "parentId": "fld_38eadadc9fdf4253a853ebd433c868f5",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "Direct Marketing / MOTO Messages",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1672329661439,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_38eadadc9fdf4253a853ebd433c868f5",
+      "parentId": "fld_af673346426f44f290eb3bf553d881f7",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "Card-Not-Present Original Authorizations",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1672329649879,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_d43d738274ca44ab98df8957ed4f911d",
+      "parentId": "fld_9dfd1740ab15410382fd8ecca1e70ce2",
+      "modified": 1672663197329,
+      "created": 1672663197329,
+      "url": "{{ _.baseURL }}v1/authorizations/",
+      "name": "3.1 MOTO with correct CVV",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"reference\": \"VISA Cert Test 3.1 MOTO Authorization with CVV\",\n  \"currency\": \"EUR\",\n  \"amount\": 100,\n  \"localTransactionDateTime\": \"2021-08-09 15:10:22\",\n  \"source\": \"moto\",\n  \"authorizationType\": \"finalAuthorization\",\n  \"card\": {\n    \"holder\": \"VISA Cert\",\n    \"number\": \"{{ _.testcards[3].number }}\",\n\t\t\"cvv\": \"{{ _.testcards[3].cvv }}\",\n    \"expiry\": {\n      \"year\": \"{{ _.expiry.year }}\",\n      \"month\": \"{{ _.expiry.month }}\"\n    }\n  },\n  \"cardAcceptor\": {\n    \"name\": \"MaxCorp\",\n    \"city\": \"Breda\",\n    \"country\": \"NLD\",\n    \"postalCode\": \"4899AL\",\n    \"categoryCode\": \"0742\",\n    \"id\": \"123456789012\"\n  }\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_3d7a8b0b5c6f40b99c5b24c58fa102fb"
+        },
+        {
+          "id": "pair_d52c550a812c4ccfb101372a29aa3056",
+          "name": "nonce",
+          "value": "{{ _.nonce }}",
+          "description": ""
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "{{ _.create_authorization_perm }}",
+        "password": ""
+      },
+      "metaSortKey": -1668006086778,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": false,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_11060b5fb5a045c6b21ba2cded1a55b2",
+      "parentId": "fld_9dfd1740ab15410382fd8ecca1e70ce2",
+      "modified": 1673945052431,
+      "created": 1673945052431,
+      "url": "{{ _.baseURL }}v1/authorizations/",
+      "name": "3.2 MOTO with Incorrect CVV",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"reference\": \"VISA Cert Test 3.1 MOTO Authorization with CVV\",\n  \"currency\": \"EUR\",\n  \"amount\": 100,\n  \"localTransactionDateTime\": \"2021-08-09 15:10:22\",\n  \"source\": \"moto\",\n  \"authorizationType\": \"finalAuthorization\",\n  \"card\": {\n    \"holder\": \"VISA Cert\",\n    \"number\": \"{{ _.testcards[3].number }}\",\n\t\t\"cvv\": \"123\",\n    \"expiry\": {\n      \"year\": \"{{ _.expiry.year }}\",\n      \"month\": \"{{ _.expiry.month }}\"\n    }\n  },\n  \"cardAcceptor\": {\n    \"name\": \"MaxCorp\",\n    \"city\": \"Breda\",\n    \"country\": \"NLD\",\n    \"postalCode\": \"4899AL\",\n    \"categoryCode\": \"0742\",\n    \"id\": \"123456789012\"\n  }\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1668006086728,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_323935b5e6b044c63a504498267cd8f7d72e78c1",
+      "parentId": "wrk_f4c46a9a6e0142ebbe5b7684ec7b2a58",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "Base Environment",
+      "data": {
+        "create_authorization_perm": "6247c10c-84a0-4fa1-b330-77eea1e944d3",
+        "create_refund_perm": "6247c10c-84a0-4fa1-b330-77eea1e944d3",
+        "get_authorizations_perm": "6247c10c-84a0-4fa1-b330-77eea1e944d3",
+        "create_reversal_perm": "6247c10c-84a0-4fa1-b330-77eea1e944d3",
+        "create_capture_perm": "6247c10c-84a0-4fa1-b330-77eea1e944d3",
+        "get_refunds_perm": "6247c10c-84a0-4fa1-b330-77eea1e944d3",
+        "testcards": {
+          "1": {
+            "number": "4761340000000019",
+            "cvv": "946"
+          },
+          "3": {
+            "number": "4761340000000035",
+            "cvv": "846"
+          }
+        },
+        "expiry": {
+          "month": "12",
+          "year": "30"
+        },
+        "baseURL": "http://localhost:8001/",
+        "nonce": "gw-${% uuid 'v4' %}"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "create_authorization_perm",
+          "create_refund_perm",
+          "get_authorizations_perm",
+          "create_reversal_perm",
+          "create_capture_perm",
+          "get_refunds_perm",
+          "testcards",
+          "expiry",
+          "baseURL",
+          "nonce"
+        ],
+        "&~|testcards": [
+          "1",
+          "3"
+        ],
+        "&~|testcards~|1": [
+          "number",
+          "cvv"
+        ],
+        "&~|testcards~|3": [
+          "number",
+          "cvv"
+        ],
+        "&~|expiry": [
+          "month",
+          "year"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1646829534360,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_6434011f3ee745be8c7fc1ba3495d492",
+      "parentId": "wrk_f4c46a9a6e0142ebbe5b7684ec7b2a58",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "name": "Default Jar",
+      "cookies": [],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "env_49e981cf97e1d94490d9c4278e4f9485e12a9496",
+      "parentId": "wrk_f4c46a9a6e0142ebbe5b7684ec7b2a58",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "fileName": "Authorization API",
+      "contents": "openapi: \"3.0.3\"\r\ninfo:\r\n  version: 0.0.2\r\n  title: Credit Card Acquiring Authorization Service\r\n  description: API for authorize, refund and capture Mastercard and Visa transaction\r\n  termsOfService: http://mycompany.com/terms/\r\n  contact:\r\n    name: Team Credit Card Acquiring\r\n    email: support@cm.com\r\n    url: http://cm.com\r\n  license:\r\n    name: Apache 2.0\r\n    url: https://www.apache.org/licenses/LICENSE-2.0.html\r\nservers:\r\n  - url: https://api.cmtest.nl/cc-acc/authorization/v1\r\n    description: Test server\r\nsecurity:\r\n  - basicAuth: []\r\npaths:\r\n  /authorizations:\r\n    post:\r\n      description: Create a new authorization and send it to Mastercard or Visa\r\n      operationId: authorize transaction\r\n      tags:\r\n        - Authorizations\r\n      parameters:\r\n        - name: nonce\r\n          in: header\r\n          description: a unique value chosen by an entity in the protocol\r\n          required: true\r\n          schema:\r\n            $ref: '#/components/schemas/Uuid'\r\n          example: a10323a5-8e0b-4dab-86d8-8a20325107e6\r\n      requestBody:\r\n        description: Authorization to send to the card scheme\r\n        required: true\r\n        content:\r\n          application/json:\r\n            schema:\r\n              $ref: '#/components/schemas/PostAuthorization'\r\n      responses:\r\n        '200':\r\n          description: successful processed the authorization request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/AuthorizationResponse'\r\n        '400':\r\n          description: bad request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '403':\r\n          description: forbidden\r\n        '422':\r\n          description: input validation error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '500':\r\n          description: internal server error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n    get:\r\n      description: |\r\n        Returns all authorizations from the system that the user has access to, filters can be used to limit the result set\r\n      operationId: getAuthorizations\r\n      tags:\r\n        - Authorizations\r\n      parameters:\r\n        - name: reference\r\n          in: query\r\n          description: customers reference passed into the create authorization payload upon creation of the authorization\r\n          required: false\r\n          style: form\r\n          schema:\r\n            type: string\r\n            format: int64\r\n            maxLength: 100\r\n          example: c2603636-4bb5-4e37-9c8c-6b1f257b226f\r\n        - name: amount\r\n          in: query\r\n          description: the requested authorize amount in the smallest currency unit (meaning for EUR 9.95 pass 995; for JPY 100, pass 100)\r\n          required: false\r\n          schema:\r\n            $ref: '#/components/schemas/Amount'\r\n          example: 9625\r\n        - name: processingDate\r\n          in: query\r\n          description: processing date and time of transaction\r\n          required: false\r\n          schema:\r\n            type: string\r\n            format: date\r\n          example: 2021-02-03\r\n        - name: pan\r\n          in: query\r\n          description: last 4 digits of the card number, wildcard search will be applied\r\n          required: false\r\n          schema:\r\n            type: string\r\n            minLength: 4\r\n            maxLength: 4\r\n          example: \"0619\"\r\n        - name: status\r\n          in: query\r\n          description: status of the authorization\r\n          required: false\r\n          schema:\r\n            type: string\r\n            enum:\r\n              - authorized\r\n              - declined\r\n              - failed\r\n              - reversed\r\n        - name: exemption\r\n          in: query\r\n          description: exemption applied in non 3DS transactions\r\n          required: false\r\n          schema:\r\n            $ref: '#/components/schemas/Exemption'\r\n        - name: responseCode\r\n          in: query\r\n          description: cardscheme's response code indicating the status of the authorization\r\n          required: false\r\n          schema:\r\n            type: string\r\n            minLength: 2\r\n            maxLength: 2\r\n          example: \"00\"\r\n        - name: traceId\r\n          in: query\r\n          description: trace ID returned by the cardschemes in case of recurring transactions\r\n          required: false\r\n          schema:\r\n            $ref: '#/components/schemas/TraceId'\r\n          example: MCC9999991231\r\n        - name: page\r\n          in: query\r\n          description: page to fetch for pagination\r\n          required: false\r\n          schema:\r\n            type: integer\r\n            format: int64\r\n            minimum: 1\r\n            maximum: 99\r\n            default: 1\r\n        - name: pageSize\r\n          in: query\r\n          description: number of authorizations per page\r\n          required: false\r\n          schema:\r\n            type: integer\r\n            format: int64\r\n            minimum: 10\r\n            maximum: 100\r\n            default: 15\r\n        - name: sort\r\n          in: query\r\n          description: column to sort the result set on\r\n          required: false\r\n          schema:\r\n            type: string\r\n            default: -processingDate\r\n            enum:\r\n              - amount\r\n              - -amount\r\n              - createdAt\r\n              - -createdAt\r\n              - processingDate\r\n              - -processingDate\r\n              - status\r\n              - -status\r\n              - exemption\r\n              - -exemption\r\n      responses:\r\n        '200':\r\n          description: filtered authorizations\r\n          content:\r\n            application/json:\r\n              schema:\r\n                type: object\r\n                properties:\r\n                  metadata:\r\n                    $ref: '#/components/schemas/Metadata'\r\n                  authorizations:\r\n                    $ref: '#/components/schemas/AuthorizationsResponse'\r\n        '400':\r\n          description: bad request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '403':\r\n          description: forbidden\r\n        '500':\r\n          description: internal server error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n  /authorizations/{authorizationId}:\r\n    get:\r\n      description: Returns a single authorization based on the ID\r\n      operationId: find authorization by id\r\n      tags:\r\n        - Authorizations\r\n      parameters:\r\n        - name: authorizationId\r\n          in: path\r\n          description: ID of authorization to fetch\r\n          required: true\r\n          schema:\r\n            $ref: '#/components/schemas/Uuid'\r\n      responses:\r\n        '200':\r\n          description: authorization response\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/AuthorizationResponse'\r\n        '400':\r\n          description: bad request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '403':\r\n          description: forbidden\r\n        '500':\r\n          description: internal server error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n  /authorizations/{authorizationId}/captures:\r\n    post:\r\n      description: start the execution of the authorization capture process\r\n      operationId: capture authorization\r\n      tags:\r\n        - Captures\r\n      parameters:\r\n        - name: authorizationId\r\n          in: path\r\n          description: authorization ID returned upon creation of the authorization\r\n          required: true\r\n          schema:\r\n            $ref: '#/components/schemas/Uuid'\r\n          example: c2603636-4bb5-4e37-9c8c-6b1f257b226f\r\n        - name: nonce\r\n          in: header\r\n          description: a unique value chosen by an entity in the protocol\r\n          required: true\r\n          schema:\r\n            $ref: '#/components/schemas/Uuid'\r\n          example: a10323a5-8e0b-4dab-86d8-8a20325107e6\r\n      requestBody:\r\n        description: Capture details\r\n        required: true\r\n        content:\r\n          application/json:\r\n            schema:\r\n              $ref: '#/components/schemas/PostCapture'\r\n      responses:\r\n        '201':\r\n          description: successful capture request. authorization capture process started.\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/CaptureResponse'\r\n        '400':\r\n          description: bad request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '403':\r\n          description: forbidden\r\n        '422':\r\n          description: input validation error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '500':\r\n          description: internal server error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n  /authorizations/{authorizationId}/reversals:\r\n    post:\r\n      description: reverse the previous authorized authorization\r\n      operationId: reverse authorization\r\n      tags:\r\n        - Reversals\r\n      parameters:\r\n        - name: authorizationId\r\n          in: path\r\n          description: authorization ID returned upon creation of the authorization\r\n          required: true\r\n          schema:\r\n            $ref: '#/components/schemas/Uuid'\r\n          example: c2603636-4bb5-4e37-9c8c-6b1f257b226f\r\n        - name: nonce\r\n          in: header\r\n          description: a unique value chosen by an entity in the protocol\r\n          required: true\r\n          schema:\r\n            $ref: '#/components/schemas/Uuid'\r\n          example: a10323a5-8e0b-4dab-86d8-8a20325107e6\r\n      responses:\r\n        '200':\r\n          description: successful processed the reversal request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/ReversalResponse'\r\n        '400':\r\n          description: bad request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '403':\r\n          description: forbidden\r\n        '500':\r\n          description: internal server error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n  /refunds:\r\n    post:\r\n      description: Creates a new refund and sends it to Mastercard or Visa\r\n      operationId: refund transaction\r\n      tags:\r\n        - Refunds\r\n      parameters:\r\n        - name: nonce\r\n          in: header\r\n          description: a unique value chosen by an entity in the protocol\r\n          required: true\r\n          schema:\r\n            $ref: '#/components/schemas/Uuid'\r\n          example: a10323a5-8e0b-4dab-86d8-8a20325107e6\r\n      requestBody:\r\n        description: Refund to send to the card scheme\r\n        required: true\r\n        content:\r\n          application/json:\r\n            schema:\r\n              $ref: '#/components/schemas/PostRefund'\r\n      responses:\r\n        '200':\r\n          description: successful processed the refund request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/RefundResponse'\r\n        '400':\r\n          description: bad request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '403':\r\n          description: forbidden\r\n        '422':\r\n          description: input validation error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '500':\r\n          description: internal server error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\ncomponents:\r\n  securitySchemes:\r\n    basicAuth:\r\n      type: http\r\n      scheme: basic\r\n  schemas:\r\n    AuthorizationResponse:\r\n      allOf:\r\n        - type: object\r\n          required:\r\n            - id\r\n          properties:\r\n            id:\r\n              $ref: '#/components/schemas/Uuid'\r\n            logId:\r\n              $ref: '#/components/schemas/Uuid'\r\n        - $ref: '#/components/schemas/AuthorizationBase'\r\n        - type: object\r\n          properties:\r\n            authorizationType:\r\n              type: string\r\n              description: indication for Mastercard transaction type\r\n              enum:\r\n                - preAuthorization\r\n                - finalAuthorization\r\n        - $ref: '#/components/schemas/Recurring'\r\n        - type: object\r\n          required:\r\n            - card\r\n            - cardAcceptor\r\n            - cardSchemeResponse\r\n            - traceId\r\n          properties:\r\n            processingDate:\r\n              type: string\r\n              format: date-time\r\n              description: timestamp in timezone the transaction was send to the card scheme\r\n            card:\r\n              $ref: '#/components/schemas/CardResponse'\r\n            cardAcceptor:\r\n              $ref: '#/components/schemas/CardAcceptor'\r\n            citMitIndicator:\r\n              $ref: '#/components/schemas/citMitIndicator'\r\n            exemption:\r\n              $ref: '#/components/schemas/Exemption'\r\n            threeDSecure:\r\n              $ref: '#/components/schemas/ThreeDSecureResponse'\r\n            cardSchemeResponse:\r\n              allOf:\r\n                - $ref: '#/components/schemas/CardSchemeResponse'\r\n                - type: object\r\n                  properties:\r\n                    traceID:\r\n                      $ref: '#/components/schemas/TraceId'\r\n    AuthorizationsResponse:\r\n      type: array\r\n      items:\r\n        $ref: '#/components/schemas/AuthorizationResponse'\r\n    PostAuthorization:\r\n      allOf:\r\n        - $ref: '#/components/schemas/AuthorizationBase'\r\n        - type: object\r\n          properties:\r\n            authorizationType:\r\n              type: string\r\n              description: indication for Mastercard transaction type\r\n              enum:\r\n                - preAuthorization\r\n                - finalAuthorization\r\n        - $ref: '#/components/schemas/Recurring'\r\n        - type: object\r\n          required:\r\n            - card\r\n            - cardAcceptor\r\n          properties:\r\n            card:\r\n              $ref: '#/components/schemas/PostCard'\r\n            cardAcceptor:\r\n              $ref: '#/components/schemas/CardAcceptor'\r\n            citMitIndicator:\r\n              $ref: '#/components/schemas/citMitIndicator'\r\n            exemption:\r\n              $ref: '#/components/schemas/Exemption'\r\n            threeDSecure:\r\n              $ref: '#/components/schemas/PostThreeDSecure'\r\n    CaptureResponse:\r\n      allOf:\r\n        - type: object\r\n          required:\r\n            - id\r\n            - authorizationId\r\n            - amount\r\n            - currency\r\n            - isFinal\r\n            - status\r\n            - url\r\n          properties:\r\n            id:\r\n              $ref: '#/components/schemas/Uuid'\r\n            authorizationId:\r\n              $ref: '#/components/schemas/Uuid'\r\n            logId:\r\n              $ref: '#/components/schemas/Uuid'\r\n        - $ref: '#/components/schemas/PostCapture'\r\n    PostCapture:\r\n      type: object\r\n      required:\r\n        - amount\r\n        - currency\r\n      properties:\r\n        amount:\r\n          $ref: '#/components/schemas/Amount'\r\n        currency:\r\n          $ref: '#/components/schemas/Currency'\r\n        isFinal:\r\n          type: boolean\r\n          description: indicates whether this is the last capture of a transaction. Is set to true if the outstanding authorized amount is reached.\r\n          default: true\r\n        reference:\r\n          $ref: '#/components/schemas/Reference'\r\n    ReversalResponse:\r\n      type: object\r\n      required:\r\n        - id\r\n        - authorizationId\r\n        - cardSchemeResponse\r\n      properties:\r\n        id:\r\n          $ref: '#/components/schemas/Uuid'\r\n        authorizationId:\r\n          $ref: '#/components/schemas/Uuid'\r\n        logId:\r\n          $ref: '#/components/schemas/Uuid'\r\n        cardSchemeResponse:\r\n          $ref: '#/components/schemas/CardSchemeResponse'\r\n    PostRefund:\r\n      allOf:\r\n        - $ref: '#/components/schemas/AuthorizationBase'\r\n        - type: object\r\n          required:\r\n            - card\r\n            - cardAcceptor\r\n          properties:\r\n            card:\r\n              type: object\r\n              required:\r\n                - number\r\n              properties:\r\n                number:\r\n                  $ref: '#/components/schemas/PAN'\r\n            cardAcceptor:\r\n              $ref: '#/components/schemas/CardAcceptor'\r\n    RefundResponse:\r\n      allOf:\r\n        - type: object\r\n          required:\r\n            - id\r\n          properties:\r\n            id:\r\n              $ref: '#/components/schemas/Uuid'\r\n            logId:\r\n              $ref: '#/components/schemas/Uuid'\r\n        - $ref: '#/components/schemas/AuthorizationBase'\r\n        - type: object\r\n          required:\r\n            - card\r\n            - cardAcceptor\r\n            - cardSchemeResponse\r\n            - traceId\r\n          properties:\r\n            authorizationType:\r\n              type: string\r\n              description: indication for Mastercard transaction type\r\n              enum:\r\n                - preAuthorization\r\n                - finalAuthorization\r\n            processingDate:\r\n              type: string\r\n              format: date-time\r\n              description: timestamp in timezone the transaction was send to the card scheme\r\n            card:\r\n              $ref: '#/components/schemas/CardResponse'\r\n            cardAcceptor:\r\n              $ref: '#/components/schemas/CardAcceptor'\r\n            cardSchemeResponse:\r\n              allOf:\r\n                - $ref: '#/components/schemas/CardSchemeResponse'\r\n                - type: object\r\n                  properties:\r\n                    traceID:\r\n                      $ref: '#/components/schemas/TraceId'\r\n    AuthorizationBase:\r\n      type: object\r\n      required:\r\n        - amount\r\n        - currency\r\n        - source\r\n        - localTransactionDateTime\r\n      properties:\r\n        amount:\r\n          $ref: '#/components/schemas/Amount'\r\n        currency:\r\n          $ref: '#/components/schemas/Currency'\r\n        reference:\r\n          $ref: '#/components/schemas/Reference'\r\n        source:\r\n          type: string\r\n          description: source of the transaction\r\n          enum:\r\n            - ecommerce\r\n            - moto\r\n        localTransactionDateTime:\r\n          type: string\r\n          description: timestamp in timezone the transaction took place in the format of YYYY-MM-DD hh:mi:ss\r\n          example: \"2022-08-02 13:47:23\"\r\n    CardSchemeResponse:\r\n      type: object\r\n      required:\r\n        - status\r\n        - code\r\n        - message\r\n      properties:\r\n        status:\r\n          type: string\r\n          description: the authorization status received from the card scheme\r\n          enum:\r\n            - Approved\r\n            - Declined\r\n            - Failed\r\n        code:\r\n          type: string\r\n          description: authorize response code indicating the status of the authorization\r\n          enum:\r\n            - \"00\"\r\n            - \"10\"\r\n            - \"01\"\r\n            - \"03\"\r\n            - \"04\"\r\n            - \"05\"\r\n            - \"08\"\r\n            - \"12\"\r\n            - \"13\"\r\n            - \"14\"\r\n            - \"15\"\r\n            - \"30\"\r\n            - \"41\"\r\n            - \"43\"\r\n            - \"51\"\r\n            - \"54\"\r\n            - \"55\"\r\n            - \"57\"\r\n            - \"58\"\r\n            - \"61\"\r\n            - \"62\"\r\n            - \"63\"\r\n            - \"65\"\r\n            - \"70\"\r\n            - \"71\"\r\n            - \"75\"\r\n            - \"76\"\r\n            - \"77\"\r\n            - \"78\"\r\n            - \"81\"\r\n            - \"84\"\r\n            - \"85\"\r\n            - \"86\"\r\n            - \"87\"\r\n            - \"88\"\r\n            - \"89\"\r\n            - \"91\"\r\n            - \"92\"\r\n            - \"94\"\r\n            - \"96\"\r\n          example: \"00\"\r\n        message:\r\n          type: string\r\n          description: explanation of the code returned by the card schemes\r\n          enum:\r\n            - Approved\r\n            - Issuer Declined\r\n            - Invalid merchant\r\n            - Capture card\r\n            - Do not honor\r\n            - Honor with ID\r\n            - Invalid transaction\r\n            - Invalid amount\r\n            - Invalid card number\r\n            - Invalid issuer\r\n            - Format error\r\n            - Lost card\r\n            - Stolen card\r\n            - Insufficient funds\r\n            - Expired card\r\n            - Invalid PIN\r\n            - Transaction not permitted to issuer/cardholder\r\n            - Transaction not permitted to acquirer/terminal\r\n            - Exceeds withdrawal amount limit\r\n            - Restricted card\r\n            - Security violation\r\n            - Soft Decline\r\n            - Contact Card Issuer\r\n            - PIN Not Changed\r\n            - Allowable number of PIN tries exceeded\r\n            - Invalid/nonexistent “To Account” specified\r\n            - Invalid/nonexistent “From Account” specified\r\n            - Invalid/nonexistent account specified (general)\r\n            - Domestic Debit Transaction Not Allowed (Regional use only)\r\n            - Invalid Authorization Life Cycle\r\n            - Not declined Valid for all zero amount transactions.\r\n            - PIN Validation not possible\r\n            - Purchase Amount Only, No Cash Back Allowed\r\n            - Cryptographic failure\r\n            - Unacceptable PIN-Transaction Declined-Retry\r\n            - Authorization System or issuer system inoperative\r\n            - Unable to route transaction\r\n            - Duplicate transmission detected\r\n            - System error\r\n          example: Approved\r\n    PostCard:\r\n      type: object\r\n      required:\r\n        - holder\r\n        - number\r\n        - expiry\r\n      properties:\r\n        holder:\r\n          type: string\r\n          description: card holders' name in capital ascii characters\r\n          minLength: 2\r\n          maxLength: 26\r\n          example: JOHN L. DOE\r\n        number:\r\n          $ref: '#/components/schemas/PAN'\r\n        cvv:\r\n          $ref: '#/components/schemas/CVV'\r\n        expiry:\r\n          $ref: '#/components/schemas/Expiry'\r\n    CardResponse:\r\n      type: object\r\n      required:\r\n        - number\r\n        - scheme\r\n      properties:\r\n        number:\r\n          description: card number\r\n          type: string\r\n          minLength: 9\r\n          maxLength: 19\r\n          example: \"222300######2704\"\r\n        scheme:\r\n          description: card scheme\r\n          type: string\r\n          example: \"mastercard\"\r\n          enum:\r\n          - \"mastercard\"\r\n          - \"visa\"\r\n    CardAcceptor:\r\n      type: object\r\n      required:\r\n        - name\r\n        - city\r\n        - country\r\n        - postalCode\r\n        - categoryCode\r\n        - id\r\n      properties:\r\n        id:\r\n          description: cardacceptor ID as used by the PSP\r\n          type: string\r\n          minLength: 1\r\n          maxLength: 12\r\n          example: CMTICKETING\r\n        categoryCode:\r\n          description: merchant category code\r\n          type: string\r\n          maxLength: 4\r\n          minLength: 4\r\n          example: \"0742\"\r\n        name:\r\n          description: the card acceptor's name\r\n          type: string\r\n          maxLength: 22\r\n          example: cm-ticketing\r\n        city:\r\n          description: The card acceptor's city\r\n          type: string\r\n          maxLength: 13\r\n          example: Breda\r\n        country:\r\n          description: country the card acceptor resides\r\n          type: string\r\n          minLength: 3\r\n          maxLength: 3\r\n          example: NLD\r\n        postalCode:\r\n          description: \"postal code of the card acceptor, mandatory for the counties: ARG, FIN, MYS, KOR, AUT, NLD, SWE, BEL, GRC, NZL, CHE, HUN, NOR, TWN, PHL, THA, ISR, TUR, CRI, PRI, CZE, DNK, KWT, SGP, VEN\"\r\n          type: string\r\n          maxLength: 10\r\n          example: 4825BD\r\n    PostThreeDSecure:\r\n      description: an authorization must be 3D secure or the merchant has to indicate why the authorization is not 3D secure through the exemption field.\r\n      allOf:\r\n        - type: object\r\n          required:\r\n            - authenticationVerificationValue\r\n          properties:\r\n            authenticationVerificationValue:\r\n              type: string\r\n              minLength: 28\r\n              maxLength: 28\r\n              description: cardholder-generated authentication data (collected by the merchant)\r\n              example: jI3JBkkaQ1p8CBAAABy0CHUAAAA=\r\n        - $ref: '#/components/schemas/ThreeDSecureResponse'\r\n    ThreeDSecureResponse:\r\n      type: object\r\n      required:\r\n        - version\r\n        - ecommerceIndicator\r\n      properties:\r\n        version:\r\n          type: string\r\n          description: the version number of ThreeDSecure that is used in the authentication\r\n          maxLength: 5\r\n          example: \"2.1.0\"\r\n        ecommerceIndicator:\r\n          type: string\r\n          description: Electronic Commerce Indicator (ECI) is a value that is returned from the Directory Server to indicate the authentication results of the credit Card payment on 3D Secure\r\n          enum:\r\n            - \"00\"\r\n            - \"01\"\r\n            - \"02\"\r\n            - \"05\"\r\n            - \"06\"\r\n            - \"07\"\r\n          example: \"01\"\r\n        directoryServerTransactionId:\r\n          type: string\r\n          description: generated by the card schemes' Directory Server during the authentication transaction and passed back to the merchant. Required for 3DS v2.\r\n          maxLength: 36\r\n          example: 3bd2137d-08f1-4feb-ba50-3c2d4401c91a\r\n    Recurring:\r\n      type: object\r\n      properties:\r\n        initialRecurring:\r\n          type: boolean\r\n          description: indicates whether this authorization is the first of a sequence of authorization\r\n          default: false\r\n        initialTraceId:\r\n          $ref: '#/components/schemas/TraceId'\r\n    citMitIndicator:\r\n      type: object\r\n      description: identify whether the transaction was initiated by the cardholder or the merchant as well as providing more detail as to the type of stored credential being used for the transaction.\r\n      required:\r\n        - initiatedBy\r\n        - subCategory\r\n      properties:\r\n        initiatedBy:\r\n          description: specify whether the transaction is cardholder-initiated transaction (CIT) or merchant-initiated transaction (MIT).\r\n          enum:\r\n            - cardholder\r\n            - mitRecurring\r\n            - mitIndustryPractice\r\n        subCategory:\r\n          description: indicator subcategory.\r\n          enum:\r\n            - credentialOnFile\r\n            - standingOrder\r\n            - subscription\r\n            - installment\r\n            - unscheduledCredentialOnFile\r\n            - partialShipment\r\n            - delayedCharge\r\n            - noShow\r\n            - resubmission\r\n    Metadata:\r\n      type: object\r\n      required:\r\n        - currentPage\r\n        - firstPage\r\n        - lastPage\r\n        - pageSize\r\n      properties:\r\n        currentPage:\r\n          type: integer\r\n          format: int64\r\n          example: 1\r\n          minimum: 1\r\n          maximum: 99\r\n        firstPage:\r\n          type: integer\r\n          format: int64\r\n          example: 1\r\n          minimum: 1\r\n          maximum: 99\r\n        lastPage:\r\n          type: integer\r\n          format: int64\r\n          example: 1\r\n          minimum: 1\r\n          maximum: 99\r\n        pageSize:\r\n          type: integer\r\n          format: int64\r\n          minimum: 10\r\n          maximum: 100\r\n          default: 15\r\n    Error:\r\n      type: object\r\n      required:\r\n        - logId\r\n        - code\r\n        - message\r\n        - details\r\n      properties:\r\n        logId:\r\n          type: string\r\n          example: 737cc179-69e6-4f4c-9e63-be382035615a\r\n        code:\r\n          type: integer\r\n          format: int64\r\n          example: 422\r\n        message:\r\n          type: string\r\n          example: input validation error\r\n        details:\r\n          type: object\r\n          additionalProperties:\r\n            type: array\r\n            items:\r\n              type: string\r\n    Amount:\r\n      type: integer\r\n      format: int64\r\n      minimum: 1\r\n      maximum: 3000000\r\n      description: amount in the smallest currency unit (meaning for EUR 9.95 pass 995; for JPY 100, pass 100)\r\n      example: 9625\r\n    Currency:\r\n      type: string\r\n      minLength: 3\r\n      maxLength: 3\r\n      description: ISO 4217 currency code\r\n      example: EUR\r\n    Uuid:\r\n      type: string\r\n      format: uuid\r\n      example: 998a8ff6-db56-4b15-b70a-a6572d8e190b\r\n    PAN:\r\n      type: string\r\n      description: the card number\r\n      minLength: 9\r\n      maxLength: 19\r\n      example: \"4619031141704650\"\r\n    CVV:\r\n      type: string\r\n      description: card verification value\r\n      minLength: 3\r\n      maxLength: 4\r\n      example: \"083\"\r\n    Expiry:\r\n      type: object\r\n      required:\r\n        - month\r\n        - year\r\n      properties:\r\n        month:\r\n          type: string\r\n          format: int\r\n          description: month of expiry\r\n          example: \"01\"\r\n        year:\r\n          type: string\r\n          format: int\r\n          description: year of expiry\r\n          example: 25\r\n    Exemption:\r\n      type: string\r\n      description: exemption applied in non 3DS transactions. Required when 3DS is not applied.\r\n      enum:\r\n        - merchantInitiated\r\n        - lowValue\r\n        - recurring\r\n    TraceId:\r\n      type: string\r\n      description: id that's returned by the card scheme to link sequential recurring transactions\r\n      minLength: 13\r\n      maxLength: 15\r\n      example: \"MCC9999991231\"\r\n    Reference:\r\n      type: string\r\n      maxLength: 100\r\n      description: customers reference passed into the create authorization payload upon creation of the authorization\r\n      example: \"c2603636-4bb5-4e37-9c8c-6b1f257b226f\"\r\n",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    },
+    {
+      "_id": "spc_5273d64bae18407a9b2afb696d9d151c",
+      "parentId": "wrk_f4c46a9a6e0142ebbe5b7684ec7b2a58",
+      "modified": 1672329562789,
+      "created": 1672329562789,
+      "fileName": "Authorization API",
+      "contents": "openapi: \"3.0.3\"\r\ninfo:\r\n  version: 0.0.2\r\n  title: Credit Card Acquiring Authorization Service\r\n  description: API for authorize, refund and capture Mastercard and Visa transaction\r\n  termsOfService: http://mycompany.com/terms/\r\n  contact:\r\n    name: Team Credit Card Acquiring\r\n    email: support@cm.com\r\n    url: http://cm.com\r\n  license:\r\n    name: Apache 2.0\r\n    url: https://www.apache.org/licenses/LICENSE-2.0.html\r\nservers:\r\n  - url: https://api.cmtest.nl/cc-acc/authorization/v1\r\n    description: Test server\r\nsecurity:\r\n  - basicAuth: []\r\npaths:\r\n  /authorizations:\r\n    post:\r\n      description: Create a new authorization and send it to Mastercard or Visa\r\n      operationId: authorize transaction\r\n      tags:\r\n        - Authorizations\r\n      parameters:\r\n        - name: nonce\r\n          in: header\r\n          description: a unique value chosen by an entity in the protocol\r\n          required: true\r\n          schema:\r\n            $ref: '#/components/schemas/Uuid'\r\n          example: a10323a5-8e0b-4dab-86d8-8a20325107e6\r\n      requestBody:\r\n        description: Authorization to send to the card scheme\r\n        required: true\r\n        content:\r\n          application/json:\r\n            schema:\r\n              $ref: '#/components/schemas/PostAuthorization'\r\n      responses:\r\n        '200':\r\n          description: successful processed the authorization request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/AuthorizationResponse'\r\n        '400':\r\n          description: bad request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '403':\r\n          description: forbidden\r\n        '422':\r\n          description: input validation error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '500':\r\n          description: internal server error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n    get:\r\n      description: |\r\n        Returns all authorizations from the system that the user has access to, filters can be used to limit the result set\r\n      operationId: getAuthorizations\r\n      tags:\r\n        - Authorizations\r\n      parameters:\r\n        - name: reference\r\n          in: query\r\n          description: customers reference passed into the create authorization payload upon creation of the authorization\r\n          required: false\r\n          style: form\r\n          schema:\r\n            type: string\r\n            format: int64\r\n            maxLength: 100\r\n          example: c2603636-4bb5-4e37-9c8c-6b1f257b226f\r\n        - name: amount\r\n          in: query\r\n          description: the requested authorize amount in the smallest currency unit (meaning for EUR 9.95 pass 995; for JPY 100, pass 100)\r\n          required: false\r\n          schema:\r\n            $ref: '#/components/schemas/Amount'\r\n          example: 9625\r\n        - name: processingDate\r\n          in: query\r\n          description: processing date and time of transaction\r\n          required: false\r\n          schema:\r\n            type: string\r\n            format: date\r\n          example: 2021-02-03\r\n        - name: pan\r\n          in: query\r\n          description: last 4 digits of the card number, wildcard search will be applied\r\n          required: false\r\n          schema:\r\n            type: string\r\n            minLength: 4\r\n            maxLength: 4\r\n          example: \"0619\"\r\n        - name: status\r\n          in: query\r\n          description: status of the authorization\r\n          required: false\r\n          schema:\r\n            type: string\r\n            enum:\r\n              - authorized\r\n              - declined\r\n              - failed\r\n              - reversed\r\n        - name: exemption\r\n          in: query\r\n          description: exemption applied in non 3DS transactions\r\n          required: false\r\n          schema:\r\n            $ref: '#/components/schemas/Exemption'\r\n        - name: responseCode\r\n          in: query\r\n          description: cardscheme's response code indicating the status of the authorization\r\n          required: false\r\n          schema:\r\n            type: string\r\n            minLength: 2\r\n            maxLength: 2\r\n          example: \"00\"\r\n        - name: traceId\r\n          in: query\r\n          description: trace ID returned by the cardschemes in case of recurring transactions\r\n          required: false\r\n          schema:\r\n            $ref: '#/components/schemas/TraceId'\r\n          example: MCC9999991231\r\n        - name: page\r\n          in: query\r\n          description: page to fetch for pagination\r\n          required: false\r\n          schema:\r\n            type: integer\r\n            format: int64\r\n            minimum: 1\r\n            maximum: 99\r\n            default: 1\r\n        - name: pageSize\r\n          in: query\r\n          description: number of authorizations per page\r\n          required: false\r\n          schema:\r\n            type: integer\r\n            format: int64\r\n            minimum: 10\r\n            maximum: 100\r\n            default: 15\r\n        - name: sort\r\n          in: query\r\n          description: column to sort the result set on\r\n          required: false\r\n          schema:\r\n            type: string\r\n            default: -processingDate\r\n            enum:\r\n              - amount\r\n              - -amount\r\n              - createdAt\r\n              - -createdAt\r\n              - processingDate\r\n              - -processingDate\r\n              - status\r\n              - -status\r\n              - exemption\r\n              - -exemption\r\n      responses:\r\n        '200':\r\n          description: filtered authorizations\r\n          content:\r\n            application/json:\r\n              schema:\r\n                type: object\r\n                properties:\r\n                  metadata:\r\n                    $ref: '#/components/schemas/Metadata'\r\n                  authorizations:\r\n                    $ref: '#/components/schemas/AuthorizationsResponse'\r\n        '400':\r\n          description: bad request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '403':\r\n          description: forbidden\r\n        '500':\r\n          description: internal server error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n  /authorizations/{authorizationId}:\r\n    get:\r\n      description: Returns a single authorization based on the ID\r\n      operationId: find authorization by id\r\n      tags:\r\n        - Authorizations\r\n      parameters:\r\n        - name: authorizationId\r\n          in: path\r\n          description: ID of authorization to fetch\r\n          required: true\r\n          schema:\r\n            $ref: '#/components/schemas/Uuid'\r\n      responses:\r\n        '200':\r\n          description: authorization response\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/AuthorizationResponse'\r\n        '400':\r\n          description: bad request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '403':\r\n          description: forbidden\r\n        '500':\r\n          description: internal server error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n  /authorizations/{authorizationId}/captures:\r\n    post:\r\n      description: start the execution of the authorization capture process\r\n      operationId: capture authorization\r\n      tags:\r\n        - Captures\r\n      parameters:\r\n        - name: authorizationId\r\n          in: path\r\n          description: authorization ID returned upon creation of the authorization\r\n          required: true\r\n          schema:\r\n            $ref: '#/components/schemas/Uuid'\r\n          example: c2603636-4bb5-4e37-9c8c-6b1f257b226f\r\n        - name: nonce\r\n          in: header\r\n          description: a unique value chosen by an entity in the protocol\r\n          required: true\r\n          schema:\r\n            $ref: '#/components/schemas/Uuid'\r\n          example: a10323a5-8e0b-4dab-86d8-8a20325107e6\r\n      requestBody:\r\n        description: Capture details\r\n        required: true\r\n        content:\r\n          application/json:\r\n            schema:\r\n              $ref: '#/components/schemas/PostCapture'\r\n      responses:\r\n        '201':\r\n          description: successful capture request. authorization capture process started.\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/CaptureResponse'\r\n        '400':\r\n          description: bad request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '403':\r\n          description: forbidden\r\n        '422':\r\n          description: input validation error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '500':\r\n          description: internal server error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n  /authorizations/{authorizationId}/reversals:\r\n    post:\r\n      description: reverse the previous authorized authorization\r\n      operationId: reverse authorization\r\n      tags:\r\n        - Reversals\r\n      parameters:\r\n        - name: authorizationId\r\n          in: path\r\n          description: authorization ID returned upon creation of the authorization\r\n          required: true\r\n          schema:\r\n            $ref: '#/components/schemas/Uuid'\r\n          example: c2603636-4bb5-4e37-9c8c-6b1f257b226f\r\n        - name: nonce\r\n          in: header\r\n          description: a unique value chosen by an entity in the protocol\r\n          required: true\r\n          schema:\r\n            $ref: '#/components/schemas/Uuid'\r\n          example: a10323a5-8e0b-4dab-86d8-8a20325107e6\r\n      responses:\r\n        '200':\r\n          description: successful processed the reversal request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/ReversalResponse'\r\n        '400':\r\n          description: bad request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '403':\r\n          description: forbidden\r\n        '500':\r\n          description: internal server error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n  /refunds:\r\n    post:\r\n      description: Creates a new refund and sends it to Mastercard or Visa\r\n      operationId: refund transaction\r\n      tags:\r\n        - Refunds\r\n      parameters:\r\n        - name: nonce\r\n          in: header\r\n          description: a unique value chosen by an entity in the protocol\r\n          required: true\r\n          schema:\r\n            $ref: '#/components/schemas/Uuid'\r\n          example: a10323a5-8e0b-4dab-86d8-8a20325107e6\r\n      requestBody:\r\n        description: Refund to send to the card scheme\r\n        required: true\r\n        content:\r\n          application/json:\r\n            schema:\r\n              $ref: '#/components/schemas/PostRefund'\r\n      responses:\r\n        '200':\r\n          description: successful processed the refund request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/RefundResponse'\r\n        '400':\r\n          description: bad request\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '403':\r\n          description: forbidden\r\n        '422':\r\n          description: input validation error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\n        '500':\r\n          description: internal server error\r\n          content:\r\n            application/json:\r\n              schema:\r\n                $ref: '#/components/schemas/Error'\r\ncomponents:\r\n  securitySchemes:\r\n    basicAuth:\r\n      type: http\r\n      scheme: basic\r\n  schemas:\r\n    AuthorizationResponse:\r\n      allOf:\r\n        - type: object\r\n          required:\r\n            - id\r\n          properties:\r\n            id:\r\n              $ref: '#/components/schemas/Uuid'\r\n            logId:\r\n              $ref: '#/components/schemas/Uuid'\r\n        - $ref: '#/components/schemas/AuthorizationBase'\r\n        - type: object\r\n          properties:\r\n            authorizationType:\r\n              type: string\r\n              description: indication for Mastercard transaction type\r\n              enum:\r\n                - preAuthorization\r\n                - finalAuthorization\r\n        - $ref: '#/components/schemas/Recurring'\r\n        - type: object\r\n          required:\r\n            - card\r\n            - cardAcceptor\r\n            - cardSchemeResponse\r\n            - traceId\r\n          properties:\r\n            processingDate:\r\n              type: string\r\n              format: date-time\r\n              description: timestamp in timezone the transaction was send to the card scheme\r\n            card:\r\n              $ref: '#/components/schemas/CardResponse'\r\n            cardAcceptor:\r\n              $ref: '#/components/schemas/CardAcceptor'\r\n            citMitIndicator:\r\n              $ref: '#/components/schemas/citMitIndicator'\r\n            exemption:\r\n              $ref: '#/components/schemas/Exemption'\r\n            threeDSecure:\r\n              $ref: '#/components/schemas/ThreeDSecureResponse'\r\n            cardSchemeResponse:\r\n              allOf:\r\n                - $ref: '#/components/schemas/CardSchemeResponse'\r\n                - type: object\r\n                  properties:\r\n                    traceID:\r\n                      $ref: '#/components/schemas/TraceId'\r\n    AuthorizationsResponse:\r\n      type: array\r\n      items:\r\n        $ref: '#/components/schemas/AuthorizationResponse'\r\n    PostAuthorization:\r\n      allOf:\r\n        - $ref: '#/components/schemas/AuthorizationBase'\r\n        - type: object\r\n          properties:\r\n            authorizationType:\r\n              type: string\r\n              description: indication for Mastercard transaction type\r\n              enum:\r\n                - preAuthorization\r\n                - finalAuthorization\r\n        - $ref: '#/components/schemas/Recurring'\r\n        - type: object\r\n          required:\r\n            - card\r\n            - cardAcceptor\r\n          properties:\r\n            card:\r\n              $ref: '#/components/schemas/PostCard'\r\n            cardAcceptor:\r\n              $ref: '#/components/schemas/CardAcceptor'\r\n            citMitIndicator:\r\n              $ref: '#/components/schemas/citMitIndicator'\r\n            exemption:\r\n              $ref: '#/components/schemas/Exemption'\r\n            threeDSecure:\r\n              $ref: '#/components/schemas/PostThreeDSecure'\r\n    CaptureResponse:\r\n      allOf:\r\n        - type: object\r\n          required:\r\n            - id\r\n            - authorizationId\r\n            - amount\r\n            - currency\r\n            - isFinal\r\n            - status\r\n            - url\r\n          properties:\r\n            id:\r\n              $ref: '#/components/schemas/Uuid'\r\n            authorizationId:\r\n              $ref: '#/components/schemas/Uuid'\r\n            logId:\r\n              $ref: '#/components/schemas/Uuid'\r\n        - $ref: '#/components/schemas/PostCapture'\r\n    PostCapture:\r\n      type: object\r\n      required:\r\n        - amount\r\n        - currency\r\n      properties:\r\n        amount:\r\n          $ref: '#/components/schemas/Amount'\r\n        currency:\r\n          $ref: '#/components/schemas/Currency'\r\n        isFinal:\r\n          type: boolean\r\n          description: indicates whether this is the last capture of a transaction. Is set to true if the outstanding authorized amount is reached.\r\n          default: true\r\n        reference:\r\n          $ref: '#/components/schemas/Reference'\r\n    ReversalResponse:\r\n      type: object\r\n      required:\r\n        - id\r\n        - authorizationId\r\n        - cardSchemeResponse\r\n      properties:\r\n        id:\r\n          $ref: '#/components/schemas/Uuid'\r\n        authorizationId:\r\n          $ref: '#/components/schemas/Uuid'\r\n        logId:\r\n          $ref: '#/components/schemas/Uuid'\r\n        cardSchemeResponse:\r\n          $ref: '#/components/schemas/CardSchemeResponse'\r\n    PostRefund:\r\n      allOf:\r\n        - $ref: '#/components/schemas/AuthorizationBase'\r\n        - type: object\r\n          required:\r\n            - card\r\n            - cardAcceptor\r\n          properties:\r\n            card:\r\n              type: object\r\n              required:\r\n                - number\r\n              properties:\r\n                number:\r\n                  $ref: '#/components/schemas/PAN'\r\n            cardAcceptor:\r\n              $ref: '#/components/schemas/CardAcceptor'\r\n    RefundResponse:\r\n      allOf:\r\n        - type: object\r\n          required:\r\n            - id\r\n          properties:\r\n            id:\r\n              $ref: '#/components/schemas/Uuid'\r\n            logId:\r\n              $ref: '#/components/schemas/Uuid'\r\n        - $ref: '#/components/schemas/AuthorizationBase'\r\n        - type: object\r\n          required:\r\n            - card\r\n            - cardAcceptor\r\n            - cardSchemeResponse\r\n            - traceId\r\n          properties:\r\n            authorizationType:\r\n              type: string\r\n              description: indication for Mastercard transaction type\r\n              enum:\r\n                - preAuthorization\r\n                - finalAuthorization\r\n            processingDate:\r\n              type: string\r\n              format: date-time\r\n              description: timestamp in timezone the transaction was send to the card scheme\r\n            card:\r\n              $ref: '#/components/schemas/CardResponse'\r\n            cardAcceptor:\r\n              $ref: '#/components/schemas/CardAcceptor'\r\n            cardSchemeResponse:\r\n              allOf:\r\n                - $ref: '#/components/schemas/CardSchemeResponse'\r\n                - type: object\r\n                  properties:\r\n                    traceID:\r\n                      $ref: '#/components/schemas/TraceId'\r\n    AuthorizationBase:\r\n      type: object\r\n      required:\r\n        - amount\r\n        - currency\r\n        - source\r\n        - localTransactionDateTime\r\n      properties:\r\n        amount:\r\n          $ref: '#/components/schemas/Amount'\r\n        currency:\r\n          $ref: '#/components/schemas/Currency'\r\n        reference:\r\n          $ref: '#/components/schemas/Reference'\r\n        source:\r\n          type: string\r\n          description: source of the transaction\r\n          enum:\r\n            - ecommerce\r\n            - moto\r\n        localTransactionDateTime:\r\n          type: string\r\n          description: timestamp in timezone the transaction took place in the format of YYYY-MM-DD hh:mi:ss\r\n          example: \"2022-08-02 13:47:23\"\r\n    CardSchemeResponse:\r\n      type: object\r\n      required:\r\n        - status\r\n        - code\r\n        - message\r\n      properties:\r\n        status:\r\n          type: string\r\n          description: the authorization status received from the card scheme\r\n          enum:\r\n            - Approved\r\n            - Declined\r\n            - Failed\r\n        code:\r\n          type: string\r\n          description: authorize response code indicating the status of the authorization\r\n          enum:\r\n            - \"00\"\r\n            - \"10\"\r\n            - \"01\"\r\n            - \"03\"\r\n            - \"04\"\r\n            - \"05\"\r\n            - \"08\"\r\n            - \"12\"\r\n            - \"13\"\r\n            - \"14\"\r\n            - \"15\"\r\n            - \"30\"\r\n            - \"41\"\r\n            - \"43\"\r\n            - \"51\"\r\n            - \"54\"\r\n            - \"55\"\r\n            - \"57\"\r\n            - \"58\"\r\n            - \"61\"\r\n            - \"62\"\r\n            - \"63\"\r\n            - \"65\"\r\n            - \"70\"\r\n            - \"71\"\r\n            - \"75\"\r\n            - \"76\"\r\n            - \"77\"\r\n            - \"78\"\r\n            - \"81\"\r\n            - \"84\"\r\n            - \"85\"\r\n            - \"86\"\r\n            - \"87\"\r\n            - \"88\"\r\n            - \"89\"\r\n            - \"91\"\r\n            - \"92\"\r\n            - \"94\"\r\n            - \"96\"\r\n          example: \"00\"\r\n        message:\r\n          type: string\r\n          description: explanation of the code returned by the card schemes\r\n          enum:\r\n            - Approved\r\n            - Issuer Declined\r\n            - Invalid merchant\r\n            - Capture card\r\n            - Do not honor\r\n            - Honor with ID\r\n            - Invalid transaction\r\n            - Invalid amount\r\n            - Invalid card number\r\n            - Invalid issuer\r\n            - Format error\r\n            - Lost card\r\n            - Stolen card\r\n            - Insufficient funds\r\n            - Expired card\r\n            - Invalid PIN\r\n            - Transaction not permitted to issuer/cardholder\r\n            - Transaction not permitted to acquirer/terminal\r\n            - Exceeds withdrawal amount limit\r\n            - Restricted card\r\n            - Security violation\r\n            - Soft Decline\r\n            - Contact Card Issuer\r\n            - PIN Not Changed\r\n            - Allowable number of PIN tries exceeded\r\n            - Invalid/nonexistent “To Account” specified\r\n            - Invalid/nonexistent “From Account” specified\r\n            - Invalid/nonexistent account specified (general)\r\n            - Domestic Debit Transaction Not Allowed (Regional use only)\r\n            - Invalid Authorization Life Cycle\r\n            - Not declined Valid for all zero amount transactions.\r\n            - PIN Validation not possible\r\n            - Purchase Amount Only, No Cash Back Allowed\r\n            - Cryptographic failure\r\n            - Unacceptable PIN-Transaction Declined-Retry\r\n            - Authorization System or issuer system inoperative\r\n            - Unable to route transaction\r\n            - Duplicate transmission detected\r\n            - System error\r\n          example: Approved\r\n    PostCard:\r\n      type: object\r\n      required:\r\n        - holder\r\n        - number\r\n        - expiry\r\n      properties:\r\n        holder:\r\n          type: string\r\n          description: card holders' name in capital ascii characters\r\n          minLength: 2\r\n          maxLength: 26\r\n          example: JOHN L. DOE\r\n        number:\r\n          $ref: '#/components/schemas/PAN'\r\n        cvv:\r\n          $ref: '#/components/schemas/CVV'\r\n        expiry:\r\n          $ref: '#/components/schemas/Expiry'\r\n    CardResponse:\r\n      type: object\r\n      required:\r\n        - number\r\n        - scheme\r\n      properties:\r\n        number:\r\n          description: card number\r\n          type: string\r\n          minLength: 9\r\n          maxLength: 19\r\n          example: \"222300######2704\"\r\n        scheme:\r\n          description: card scheme\r\n          type: string\r\n          example: \"mastercard\"\r\n          enum:\r\n          - \"mastercard\"\r\n          - \"visa\"\r\n    CardAcceptor:\r\n      type: object\r\n      required:\r\n        - name\r\n        - city\r\n        - country\r\n        - postalCode\r\n        - categoryCode\r\n        - id\r\n      properties:\r\n        id:\r\n          description: cardacceptor ID as used by the PSP\r\n          type: string\r\n          minLength: 1\r\n          maxLength: 12\r\n          example: CMTICKETING\r\n        categoryCode:\r\n          description: merchant category code\r\n          type: string\r\n          maxLength: 4\r\n          minLength: 4\r\n          example: \"0742\"\r\n        name:\r\n          description: the card acceptor's name\r\n          type: string\r\n          maxLength: 22\r\n          example: cm-ticketing\r\n        city:\r\n          description: The card acceptor's city\r\n          type: string\r\n          maxLength: 13\r\n          example: Breda\r\n        country:\r\n          description: country the card acceptor resides\r\n          type: string\r\n          minLength: 3\r\n          maxLength: 3\r\n          example: NLD\r\n        postalCode:\r\n          description: \"postal code of the card acceptor, mandatory for the counties: ARG, FIN, MYS, KOR, AUT, NLD, SWE, BEL, GRC, NZL, CHE, HUN, NOR, TWN, PHL, THA, ISR, TUR, CRI, PRI, CZE, DNK, KWT, SGP, VEN\"\r\n          type: string\r\n          maxLength: 10\r\n          example: 4825BD\r\n    PostThreeDSecure:\r\n      description: an authorization must be 3D secure or the merchant has to indicate why the authorization is not 3D secure through the exemption field.\r\n      allOf:\r\n        - type: object\r\n          required:\r\n            - authenticationVerificationValue\r\n          properties:\r\n            authenticationVerificationValue:\r\n              type: string\r\n              minLength: 28\r\n              maxLength: 28\r\n              description: cardholder-generated authentication data (collected by the merchant)\r\n              example: jI3JBkkaQ1p8CBAAABy0CHUAAAA=\r\n        - $ref: '#/components/schemas/ThreeDSecureResponse'\r\n    ThreeDSecureResponse:\r\n      type: object\r\n      required:\r\n        - version\r\n        - ecommerceIndicator\r\n      properties:\r\n        version:\r\n          type: string\r\n          description: the version number of ThreeDSecure that is used in the authentication\r\n          maxLength: 5\r\n          example: \"2.1.0\"\r\n        ecommerceIndicator:\r\n          type: string\r\n          description: Electronic Commerce Indicator (ECI) is a value that is returned from the Directory Server to indicate the authentication results of the credit Card payment on 3D Secure\r\n          enum:\r\n            - \"00\"\r\n            - \"01\"\r\n            - \"02\"\r\n            - \"05\"\r\n            - \"06\"\r\n            - \"07\"\r\n          example: \"01\"\r\n        directoryServerTransactionId:\r\n          type: string\r\n          description: generated by the card schemes' Directory Server during the authentication transaction and passed back to the merchant. Required for 3DS v2.\r\n          maxLength: 36\r\n          example: 3bd2137d-08f1-4feb-ba50-3c2d4401c91a\r\n    Recurring:\r\n      type: object\r\n      properties:\r\n        initialRecurring:\r\n          type: boolean\r\n          description: indicates whether this authorization is the first of a sequence of authorization\r\n          default: false\r\n        initialTraceId:\r\n          $ref: '#/components/schemas/TraceId'\r\n    citMitIndicator:\r\n      type: object\r\n      description: identify whether the transaction was initiated by the cardholder or the merchant as well as providing more detail as to the type of stored credential being used for the transaction.\r\n      required:\r\n        - initiatedBy\r\n        - subCategory\r\n      properties:\r\n        initiatedBy:\r\n          description: specify whether the transaction is cardholder-initiated transaction (CIT) or merchant-initiated transaction (MIT).\r\n          enum:\r\n            - cardholder\r\n            - mitRecurring\r\n            - mitIndustryPractice\r\n        subCategory:\r\n          description: indicator subcategory.\r\n          enum:\r\n            - credentialOnFile\r\n            - standingOrder\r\n            - subscription\r\n            - installment\r\n            - unscheduledCredentialOnFile\r\n            - partialShipment\r\n            - delayedCharge\r\n            - noShow\r\n            - resubmission\r\n    Metadata:\r\n      type: object\r\n      required:\r\n        - currentPage\r\n        - firstPage\r\n        - lastPage\r\n        - pageSize\r\n      properties:\r\n        currentPage:\r\n          type: integer\r\n          format: int64\r\n          example: 1\r\n          minimum: 1\r\n          maximum: 99\r\n        firstPage:\r\n          type: integer\r\n          format: int64\r\n          example: 1\r\n          minimum: 1\r\n          maximum: 99\r\n        lastPage:\r\n          type: integer\r\n          format: int64\r\n          example: 1\r\n          minimum: 1\r\n          maximum: 99\r\n        pageSize:\r\n          type: integer\r\n          format: int64\r\n          minimum: 10\r\n          maximum: 100\r\n          default: 15\r\n    Error:\r\n      type: object\r\n      required:\r\n        - logId\r\n        - code\r\n        - message\r\n        - details\r\n      properties:\r\n        logId:\r\n          type: string\r\n          example: 737cc179-69e6-4f4c-9e63-be382035615a\r\n        code:\r\n          type: integer\r\n          format: int64\r\n          example: 422\r\n        message:\r\n          type: string\r\n          example: input validation error\r\n        details:\r\n          type: object\r\n          additionalProperties:\r\n            type: array\r\n            items:\r\n              type: string\r\n    Amount:\r\n      type: integer\r\n      format: int64\r\n      minimum: 1\r\n      maximum: 3000000\r\n      description: amount in the smallest currency unit (meaning for EUR 9.95 pass 995; for JPY 100, pass 100)\r\n      example: 9625\r\n    Currency:\r\n      type: string\r\n      minLength: 3\r\n      maxLength: 3\r\n      description: ISO 4217 currency code\r\n      example: EUR\r\n    Uuid:\r\n      type: string\r\n      format: uuid\r\n      example: 998a8ff6-db56-4b15-b70a-a6572d8e190b\r\n    PAN:\r\n      type: string\r\n      description: the card number\r\n      minLength: 9\r\n      maxLength: 19\r\n      example: \"4619031141704650\"\r\n    CVV:\r\n      type: string\r\n      description: card verification value\r\n      minLength: 3\r\n      maxLength: 4\r\n      example: \"083\"\r\n    Expiry:\r\n      type: object\r\n      required:\r\n        - month\r\n        - year\r\n      properties:\r\n        month:\r\n          type: string\r\n          format: int\r\n          description: month of expiry\r\n          example: \"01\"\r\n        year:\r\n          type: string\r\n          format: int\r\n          description: year of expiry\r\n          example: 25\r\n    Exemption:\r\n      type: string\r\n      description: exemption applied in non 3DS transactions. Required when 3DS is not applied.\r\n      enum:\r\n        - merchantInitiated\r\n        - lowValue\r\n        - recurring\r\n    TraceId:\r\n      type: string\r\n      description: id that's returned by the card scheme to link sequential recurring transactions\r\n      minLength: 13\r\n      maxLength: 15\r\n      example: \"MCC9999991231\"\r\n    Reference:\r\n      type: string\r\n      maxLength: 100\r\n      description: customers reference passed into the create authorization payload upon creation of the authorization\r\n      example: \"c2603636-4bb5-4e37-9c8c-6b1f257b226f\"\r\n",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    },
+    {
+      "_id": "uts_7d405263e99241cea91771e04d4e4e6e",
+      "parentId": "wrk_f4c46a9a6e0142ebbe5b7684ec7b2a58",
+      "modified": 1672329792288,
+      "created": 1672329792288,
+      "name": "VISA Certification",
+      "_type": "unit_test_suite"
+    },
+    {
+      "_id": "env_55c342d4e410473d9ab3ee4cb82e6893",
+      "parentId": "env_323935b5e6b044c63a504498267cd8f7d72e78c1",
+      "modified": 1672322080512,
+      "created": 1672322080512,
+      "name": "Acceptance (PS)",
+      "data": {
+        "baseURL": "https://api.cmtest.nl/cc-acc/authorization/",
+        "authUsername": "d035eb4f-0f35-4266-a837-84afe0a474a1",
+        "nonce": "gw-${% uuid 'v4' %}"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "baseURL",
+          "authUsername",
+          "nonce"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 3,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_fbc7ec29a56c4080890d967457559639",
+      "parentId": "env_323935b5e6b044c63a504498267cd8f7d72e78c1",
+      "modified": 1672322080517,
+      "created": 1672322080517,
+      "name": "Test",
+      "data": {
+        "baseURL": "http://api.test.cmpayments.cloud/",
+        "nonce": "gw-${% uuid 'v4' %}"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "baseURL",
+          "nonce"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 2,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_2470c1cf50544af8b3d8f83e2e02214d",
+      "parentId": "env_323935b5e6b044c63a504498267cd8f7d72e78c1",
+      "modified": 1672322080522,
+      "created": 1672322080522,
+      "name": "Development",
+      "data": {
+        "baseURL": "https://api.cmtest.nl/cc-dev01/authorization/",
+        "authUsername": "1234",
+        "nonce": "gw-${% uuid 'v4' %}"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "baseURL",
+          "authUsername",
+          "nonce"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_2527517415da418ba6cae04d77ea5b9f",
+      "parentId": "env_323935b5e6b044c63a504498267cd8f7d72e78c1",
+      "modified": 1672322080529,
+      "created": 1672322080529,
+      "name": "Localhost",
+      "data": {},
+      "dataPropertyOrder": {},
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 0,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_8f6653c9dd3e4b08b3ba8a04c935b65c",
+      "parentId": "env_323935b5e6b044c63a504498267cd8f7d72e78c1",
+      "modified": 1672322080533,
+      "created": 1672322080533,
+      "name": "Production",
+      "data": {
+        "baseURL": "https://api.mycompany.com/creditcard-acquiring/authorization/",
+        "nonce": "gw-${% uuid 'v4' %}"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "baseURL",
+          "nonce"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 4,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_5cd34082e1e142e0a0d7db426521080d",
+      "parentId": "env_323935b5e6b044c63a504498267cd8f7d72e78c1",
+      "modified": 1672737076924,
+      "created": 1672737076924,
+      "name": "Production",
+      "data": {
+        "baseURL": "https://api.mycompany.com/creditcard-acquiring/"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "baseURL"
+        ]
+      },
+      "color": "#ff0000",
+      "isPrivate": false,
+      "metaSortKey": 1672737076924,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_13edeb06b39440ada5cc18fe6752c532",
+      "parentId": "env_323935b5e6b044c63a504498267cd8f7d72e78c1",
+      "modified": 1672737132116,
+      "created": 1672737132116,
+      "name": "Sandbox",
+      "data": {
+        "baseURL": "https://api.mycompany.com/creditcard-acquiring-sandbox/"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "baseURL"
+        ]
+      },
+      "color": "#ff7300",
+      "isPrivate": false,
+      "metaSortKey": 1672737132116,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_de684937f9c749bc8257d2611952b6a7",
+      "parentId": "env_323935b5e6b044c63a504498267cd8f7d72e78c1",
+      "modified": 1672737166180,
+      "created": 1672737166180,
+      "name": "Acceptance",
+      "data": {
+        "baseURL": "https://api.cmtest.nl/cc-acc/"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "baseURL"
+        ]
+      },
+      "color": "#ffff00",
+      "isPrivate": false,
+      "metaSortKey": 1672737166180,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_5e1ce45be0694dd1af83c92e0ffd3564",
+      "parentId": "env_323935b5e6b044c63a504498267cd8f7d72e78c1",
+      "modified": 1672737194862,
+      "created": 1672737194862,
+      "name": "Test",
+      "data": {
+        "baseURL": "https://api.cmtest.nl/cc-test/"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "baseURL"
+        ]
+      },
+      "color": "#ff00f7",
+      "isPrivate": false,
+      "metaSortKey": 1672737194862,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_cf50b6b4cdd043c087995c4d762d4e9f",
+      "parentId": "env_323935b5e6b044c63a504498267cd8f7d72e78c1",
+      "modified": 1672737253172,
+      "created": 1672737253172,
+      "name": "Dev01",
+      "data": {
+        "baseURL": "https://api.cmtest.nl/cc-dev01/"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "baseURL"
+        ]
+      },
+      "color": "#00ff04",
+      "isPrivate": false,
+      "metaSortKey": 1672737253172,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_97bfa286837640048a96e0b49938dabd",
+      "parentId": "env_323935b5e6b044c63a504498267cd8f7d72e78c1",
+      "modified": 1672737270709,
+      "created": 1672737270709,
+      "name": "Localhost",
+      "data": {
+        "_note": "The localhost environment should not have any overwrites"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "_note"
+        ]
+      },
+      "color": "#0000ff",
+      "isPrivate": false,
+      "metaSortKey": 1672737270709,
+      "_type": "environment"
+    },
+    {
+      "_id": "ut_4f530e6256ff487fbb4f5863a0259936",
+      "parentId": "uts_7d405263e99241cea91771e04d4e4e6e",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "requestId": "req_b533eba08ffe4f219232db1b5adca332",
+      "name": "CNP / Direct Marketing / 2.1 MOTO Authorization",
+      "code": "const response = await insomnia.send();\nexpect(response.status).to.equal(200);\n\nconst body = JSON.parse(response.data);\nexpect(body.cardSchemeResponse.status).to.equal(\"approved\");",
+      "_type": "unit_test"
+    },
+    {
+      "_id": "ut_628c9482f9c2476a8da2c9583beeeaf1",
+      "parentId": "uts_7d405263e99241cea91771e04d4e4e6e",
+      "modified": 1600000000000,
+      "created": 1600000000000,
+      "requestId": "req_071ec87ba9374a4ba03ba6b4aec1ad7a",
+      "name": "12.8 E-Commerce Merchandise Credit Return",
+      "code": "console.log(\"Do the call\");\nconst response = await insomnia.send();\nconsole.log(\"Did the call\");\nconsole.log(response);\nconsole.log(\"Logged the response\");\nexpect(response.status).to.equal(200);\nconsole.log(\"Checked the status\");\n\nconst body = JSON.parse(response.data);\nexpect(body.cardSchemeResponse.status).to.equal(\"approved\");",
+      "_type": "unit_test"
+    },
+    {
+      "_id": "ut_3fed54b9e6ae474fa2cf033d6119664f",
+      "parentId": "uts_7d405263e99241cea91771e04d4e4e6e",
+      "modified": 1672663612261,
+      "created": 1672663612261,
+      "requestId": "req_d43d738274ca44ab98df8957ed4f911d",
+      "name": "CNP / Direct Marketing / 3.1 MOTO with CVV2",
+      "code": "const response1 = await insomnia.send();\nexpect(response1.status).to.equal(200);\n\nconst body = JSON.parse(response1.data);\nexpect(body.cardSchemeResponse.status).to.equal(\"approved\");",
+      "_type": "unit_test"
+    }
+  ]
+}

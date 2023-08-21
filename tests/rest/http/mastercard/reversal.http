@@ -1,0 +1,13 @@
+###
+# @name=Reversal
+POST {{host}}/v1/authorizations/{{authorization_id}}/reversals
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+
+> {%
+    client.test("Reversal should return 201 OK", function () {
+        client.assert(response.status === 201, "status is not 201")
+    })
+%}

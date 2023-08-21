@@ -1,0 +1,72 @@
+version: "3.9"
+services:
+
+  storage:
+    image: fsouza/fake-gcs-server
+    ports:
+      - "4443:4443"
+    volumes:
+      - ./tests/mastercard:/data
+    command: ["-backend", "memory", "-scheme", "http", "-public-host", "storage:4443"]
+
+  spanner:
+    image: gcr.io/cloud-spanner-emulator/emulator:latest
+    ports:
+      - "9010:9010"
+      - "9020:9020"
+
+  mipmock:
+    image: europe-west4-docker.pkg.dev/cc-acquiring-management/cc-acquiring/stubs/mastercard-mip:f9b98ee0-develop
+    ports:
+      - "9999:9999"
+
+  gcloud-emulators-init:
+    image: google/cloud-sdk:emulators
+    depends_on:
+      - spanner
+    environment:
+      INSTANCE_NAME: "authorization-instance"
+      DATABASE_NAME: "authorizations"
+    volumes:
+      - ./configs/gcloud/config_emulator:/root/.config/gcloud/configurations/config_emulator
+    ports:
+      - "8085:8085"
+    command: >
+      bash -c 'gcloud config configurations activate emulator
+              gcloud spanner instances create $${INSTANCE_NAME} --config=emulator-config --description=Emulator --nodes=1
+              gcloud spanner databases create $${DATABASE_NAME} --instance=$${INSTANCE_NAME}
+              gcloud beta emulators pubsub start --host-port=0.0.0.0:8085 --project=cc-acquiring-development'
+
+#  migrate:
+#    image: migrate/migrate:latest
+#    depends_on:
+#      - gcloud-emulators-init
+#    restart: on-failure
+#    environment:
+#      SPANNER_EMULATOR_HOST: "spanner:9010"
+#    volumes:
+#      - ./database/migrations:/migrations
+#    working_dir: /database/migrations
+#    command: -path=/migrations/ -database spanner://projects/cc-acquiring-development/instances/authorization-instance/databases/authorizations?x-clean-statements=true up
+
+#  bootstrap:
+#    image: golang:alpine
+#    depends_on:
+#      - migrate
+#      - gcloud-emulators-init
+#    restart: on-failure
+#    environment:
+#      SPANNER_EMULATOR_HOST: "spanner:9010"
+#      STORAGE_EMULATOR_HOST: "http://storage:4443/storage/v1/"
+#      PUBSUB_EMULATOR_HOST: "gcloud-emulators-init:8085"
+#    volumes:
+#      - .:/app
+#      - ./configs/development.yml:/app/config.yml
+#      - $GOPATH/pkg/mod:/go/pkg/mod
+#    working_dir: /app
+#    command:
+#      - /bin/sh
+#      - -c
+#      - |
+#        go run ./database/fixture seed  -config /app/config.yml
+#        go run ./cmd/pubsub -config /app/config.yml

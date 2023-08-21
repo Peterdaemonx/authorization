@@ -1,0 +1,1 @@
+ALTER TABLE authorizations DROP COLUMN merchant_id;

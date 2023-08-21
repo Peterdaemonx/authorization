@@ -1,0 +1,1 @@
+DROP INDEX reversal_authorization_id;

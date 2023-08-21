@@ -1,0 +1,1 @@
+ALTER TABLE authorizations DROP COLUMN trace_id;

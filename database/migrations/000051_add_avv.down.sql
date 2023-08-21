@@ -1,0 +1,1 @@
+ALTER TABLE authorizations DROP COLUMN accountholder_authentication_value;

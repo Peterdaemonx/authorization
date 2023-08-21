@@ -1,0 +1,79 @@
+###
+# @name=simple_authorization
+POST {{host}}/v1/authorizations/
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "reference": "Test 0400016 9000",
+  "currency": "EUR",
+  "amount": 100,
+  "localTransactionDateTime": "2021-08-09 15:10:22",
+  "source": "ecommerce",
+  "authorizationType": "finalAuthorization",
+  "card": {
+    "holder": "P A Vision VISAAAAA",
+    "number": "5204740000001002",
+    "cvv": "234",
+    "expiry": {
+      "year": "30",
+      "month": "12"
+    }
+  },
+  "cardAcceptor": {
+    "name": "MaxCorp",
+    "city": "Breda",
+    "country": "NLD",
+    "postalCode": "4899AL",
+    "categoryCode": "0742",
+    "id": "123456789012"
+  },
+  "threeDSecure": {
+    "ecommerceIndicator": "02",
+    "authenticationVerificationValue": "jI3JBkkaQ1p8CBAAABy0CHUAAAA=",
+    "directoryServerTransactionId": "3bd2137d-08f1-4feb-ba50-3c2d4401c91a",
+    "version": "2"
+  }
+}
+
+> {%
+
+    client.test("@simple_authorization returns 200", function () {
+      client.assert(response.status === 200, "status is not 200")
+      if (response.status === 200) {
+          client.global.clear("authorization_id")
+          client.global.set("authorization_id", response.body.id)
+          client.log("id from response: " + response.body.id)
+      }
+    })
+
+    client.test("@simple_authorization contains approved", function (){
+        client.assert(response.body.cardSchemeResponse.status === "approved", "status is not approved")
+        client.log("status from response: "+ response.body.cardSchemeResponse.status)
+    })
+%}
+
+###
+# @name=simple_capture
+POST {{host}}/v1/authorizations/{{authorization_id}}/captures
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+  "amount": 50,
+  "isFinal": false,
+  "currency": "EUR"
+}
+
+> {%
+    client.test("@simple_capture returns 201", function () {
+        client.assert(response.status === 201, "status is not 201")
+        if (response.status === 201) {
+            client.log("Authorization Id from response: " + response.body.authorizationId)
+        }
+    })
+ %}
+
+###

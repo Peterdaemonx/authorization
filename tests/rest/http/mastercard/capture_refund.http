@@ -1,0 +1,20 @@
+###
+# @name=Capture Refund
+
+POST {{host}}/v1/refunds/{{refund_id}}/captures
+Content-Type: application/json
+nonce: gw-{{$random.uuid}}
+Authorization: Basic {{authorization_perm}}
+
+{
+    "amount": {{amount}},
+    "currency": "{{currency}}",
+    "isFinal": true,
+    "reference": "{{reference}}"
+}
+
+> {%
+    client.test("Capture Refund should return 201 OK", function () {
+        client.assert(response.status === 201, "status is not 201")
+    })
+%}

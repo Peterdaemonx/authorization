@@ -1,0 +1,1 @@
+ALTER TABLE authorizations DROP COLUMN is_subsequent_recurring;
